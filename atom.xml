@@ -6,7 +6,7 @@
   <link href="https://blog.dzm.pp.ua/atom.xml" rel="self"/>
   
   <link href="https://blog.dzm.pp.ua/"/>
-  <updated>2025-01-14T16:05:16.005Z</updated>
+  <updated>2025-01-18T13:32:10.891Z</updated>
   <id>https://blog.dzm.pp.ua/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="https://blog.dzm.pp.ua/2025/01/14/%E5%A4%A7%E5%AE%B6%E5%A5%BD%EF%BC%81%E8%BF%99%E6%98%AF%E6%88%91%E7%9A%84%E6%96%B0%E5%8D%9A%E5%AE%A2/"/>
     <id>https://blog.dzm.pp.ua/2025/01/14/%E5%A4%A7%E5%AE%B6%E5%A5%BD%EF%BC%81%E8%BF%99%E6%98%AF%E6%88%91%E7%9A%84%E6%96%B0%E5%8D%9A%E5%AE%A2/</id>
     <published>2025-01-14T14:48:42.000Z</published>
-    <updated>2025-01-14T16:05:16.005Z</updated>
+    <updated>2025-01-18T13:32:10.891Z</updated>
     
-    <content type="html"><![CDATA[<p>许久没搭建过博客了，今天第一次进行，踩了很多坑，因为有很多依赖在这几年里面更新了。<br>今天完成了GitHub Pages的部署和域名的配置。更多细节方面的技术坑之后将在本博客写出教程！</p><meta name="fediverse:creator" content="@Network@cmx.dzm.pp.ua">]]></content>
+    <content type="html"><![CDATA[<p>许久没搭建过博客了，今天第一次进行，踩了很多坑，因为有很多依赖在这几年里面更新了。<br>今天完成了GitHub Pages的部署和域名的配置。更多细节方面的技术坑之后将在本博客写出教程！</p><h3 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h3><p>明天写部署Hexo心得。</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;许久没搭建过博客了，今天第一次进行，踩了很多坑，因为有很多依赖在这几年里面更新了。&lt;br&gt;今天完成了GitHub Pages的部署和域名的配置。更多细节方面的技术坑之后将在本博客写出教程！&lt;/p&gt;
-&lt;meta name=&quot;fediverse:creator&quot; content</summary>
+&lt;h3 id=&quot;预告&quot;&gt;&lt;a href=&quot;#预告&quot; class=&quot;heade</summary>
       
     
     

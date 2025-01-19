@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.dzm.pp.ua/2025/01/19/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/</loc>
+    
+    <lastmod>2025-01-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.dzm.pp.ua/2025/01/14/%E5%A4%A7%E5%AE%B6%E5%A5%BD%EF%BC%81%E8%BF%99%E6%98%AF%E6%88%91%E7%9A%84%E6%96%B0%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2025-01-18</lastmod>
@@ -40,19 +49,33 @@
 
   <url>
     <loc>https://blog.dzm.pp.ua/</loc>
-    <lastmod>2025-01-18</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>https://blog.dzm.pp.ua/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/</loc>
+    <lastmod>2025-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.dzm.pp.ua/tags/%E7%B2%BE%E5%BD%A9%E6%98%8E%E5%A4%A9%E7%BB%A7%E7%BB%AD%EF%BC%81/</loc>
-    <lastmod>2025-01-18</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
 
+  
+  <url>
+    <loc>https://blog.dzm.pp.ua/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>

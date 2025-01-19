@@ -4,7 +4,7 @@ https://blog.dzm.pp.ua/about/index.html
 https://blog.dzm.pp.ua/categories/index.html
 https://blog.dzm.pp.ua/tags/index.html
 https://blog.dzm.pp.ua/
+https://blog.dzm.pp.ua/tags/%E7%B2%BE%E5%BD%A9%E6%98%8E%E5%A4%A9%E7%BB%A7%E7%BB%AD%EF%BC%81/
 https://blog.dzm.pp.ua/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/
 https://blog.dzm.pp.ua/tags/Git%E7%9A%84%E4%BD%BF%E7%94%A8/
-https://blog.dzm.pp.ua/tags/%E7%B2%BE%E5%BD%A9%E6%98%8E%E5%A4%A9%E7%BB%A7%E7%BB%AD%EF%BC%81/
 https://blog.dzm.pp.ua/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/

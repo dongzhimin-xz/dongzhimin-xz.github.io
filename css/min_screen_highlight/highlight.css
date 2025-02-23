@@ -257,11 +257,11 @@ blockquote {
 }
 #post pre .deletion,
 .post-content pre .deletion {
-  background: #008000;
+  background: #800000;
 }
 #post pre .addition,
 .post-content pre .addition {
-  background: #800000;
+  background: #008000;
 }
 #post pre .meta,
 .post-content pre .meta {

@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="长毛象实例迁移"><meta name="keywords" content="言论自由只在这里,Postfix配置"><meta name="author" content="妙瓦草,undefined"><meta name="copyright" content="妙瓦草"><meta name="fediverse:creator" content="@Network@cmx.dzm.pp.ua"><link rel="me" href="https://cmx.dzm.pp.ua/@Network"><title>长毛象实例迁移【妙瓦种子】</title><link rel="stylesheet" href="../../../../css/fan.css"><link rel="stylesheet" href="../../../../css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><link rel="icon" href="../../../../favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- script(src=url_for("/js/mathjax/mathjax.js"))--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"BLFJMI3OZT","apiKey":"bfca30d788c8947af1865ed33655b646","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  gitment: {},
+  valine: {"appId":"xASAWVJMlgR6Z0IAumJosLmQ-MdYXbMMI","appKey":"hrSzqoj09CVByDzUeBMDEjuF","serverURLs":"https://xasawvjm.api.lncldglobal.com"},
+  twikoo: {},
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="妙瓦种子" type="application/atom+xml">
+</head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E7%9A%84%E8%AF%BB%E8%80%85"><span class="toc-number">1.</span> <span class="toc-text">面向的读者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">需要的基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">前提条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84tmux%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">几个简单的tmux操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5tmux"><span class="toc-number">2.1.1.</span> <span class="toc-text">进入tmux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E6%AD%A2tmux%E4%BC%9A%E8%AF%9D"><span class="toc-number">2.1.2.</span> <span class="toc-text">终止tmux会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%B1%E7%A6%BBtmux"><span class="toc-number">2.1.3.</span> <span class="toc-text">脱离tmux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5tmux%E6%9C%89%E5%A4%9A%E5%B0%91%E4%BC%9A%E8%AF%9D"><span class="toc-number">2.1.4.</span> <span class="toc-text">检查tmux有多少会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E7%AC%AC%E4%B8%80%E4%B8%AAtmux%E4%BC%9A%E8%AF%9D"><span class="toc-number">2.1.5.</span> <span class="toc-text">进入第一个tmux会话</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">准备新服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">更改登录方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-number">3.1.1.</span> <span class="toc-text">禁止密码登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E7%AB%AF%E5%8F%A3"><span class="toc-number">3.1.2.</span> <span class="toc-text">更改端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8D%87%E7%BA%A7"><span class="toc-number">3.2.</span> <span class="toc-text">系统升级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-number">3.3.</span> <span class="toc-text">分配虚拟内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85fail2ban"><span class="toc-number">3.4.</span> <span class="toc-text">安装fail2ban</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fail2ban%E9%85%8D%E7%BD%AE%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92"><span class="toc-number">3.4.1.</span> <span class="toc-text">fail2ban配置邮件提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fail2ban%E9%85%8D%E7%BD%AE%E9%87%8D%E5%90%AF%E6%8F%90%E9%86%92"><span class="toc-number">3.4.2.</span> <span class="toc-text">fail2ban配置重启提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#postfix%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.3.</span> <span class="toc-text">postfix的安装与配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#postfix%E9%85%8D%E7%BD%AE%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">3.4.3.1.</span> <span class="toc-text">postfix配置的验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81fail2ban"><span class="toc-number">3.4.4.</span> <span class="toc-text">验证fail2ban</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.5.</span> <span class="toc-text">配置防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nginx"><span class="toc-number">3.5.1.</span> <span class="toc-text">安装nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%85%E5%85%81%E8%AE%B8cloudflare"><span class="toc-number">3.5.2.</span> <span class="toc-text">配置仅允许cloudflare</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">部署长毛象实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">5.</span> <span class="toc-text">安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0Node-js%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-number">5.1.</span> <span class="toc-text">添加Node.js软件源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0PostgreSQL%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-number">5.2.</span> <span class="toc-text">添加PostgreSQL软件源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%85%A8%E9%83%A8%E4%BE%9D%E8%B5%96"><span class="toc-number">5.3.</span> <span class="toc-text">安装全部依赖</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAmastodon%E7%94%A8%E6%88%B7"><span class="toc-number">6.</span> <span class="toc-text">创建mastodon用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">7.</span> <span class="toc-text">配置PostgreSQL数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%80%A7%E8%83%BD"><span class="toc-number">7.1.</span> <span class="toc-text">优化性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7"><span class="toc-number">7.2.</span> <span class="toc-text">创建数据库用户</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8EGitHub%E5%AE%89%E8%A3%85%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">8.</span> <span class="toc-text">从GitHub安装长毛象实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Ruby"><span class="toc-number">8.1.</span> <span class="toc-text">安装Ruby</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%BE%9D%E8%B5%96%E7%9A%84Ruby%E5%92%8CNode-js%E7%BB%84%E4%BB%B6"><span class="toc-number">8.2.</span> <span class="toc-text">安装长毛象依赖的Ruby和Node.js组件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%BF%81%E7%A7%BB%E5%AE%9E%E4%BE%8B"><span class="toc-number">9.</span> <span class="toc-text">开始迁移实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">9.1.</span> <span class="toc-text">迁移前的准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6"><span class="toc-number">9.2.</span> <span class="toc-text">迁移媒体文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A7%E5%AE%9E%E4%BE%8B%E5%81%9C%E6%9C%BA"><span class="toc-number">9.3.</span> <span class="toc-text">旧实例停机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">9.4.</span> <span class="toc-text">迁移数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6"><span class="toc-number">9.5.</span> <span class="toc-text">迁移其他文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BBRedis%E6%96%87%E4%BB%B6"><span class="toc-number">9.6.</span> <span class="toc-text">迁移Redis文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%96%B0%E5%AE%9E%E4%BE%8B"><span class="toc-number">9.7.</span> <span class="toc-text">编译新实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%96%B0%E5%AE%9E%E4%BE%8B"><span class="toc-number">9.8.</span> <span class="toc-text">启动新实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E8%A7%A3%E6%9E%90%E5%9F%9F%E5%90%8D"><span class="toc-number">9.9.</span> <span class="toc-text">重新解析域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Certbot%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6"><span class="toc-number">9.10.</span> <span class="toc-text">Certbot申请证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%AE%9E%E4%BE%8B%E7%BD%91%E9%A1%B5%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA"><span class="toc-number">9.10.1.</span> <span class="toc-text">新实例网页无法正常显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%AF%81%E4%B9%A6%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="toc-number">9.10.2.</span> <span class="toc-text">设置证书自动更新</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA%E6%97%B6%E9%97%B4%E7%BA%BF"><span class="toc-number">10.</span> <span class="toc-text">重建时间线</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%90%E8%97%8FIP%E5%9C%B0%E5%9D%80"><span class="toc-number">11.</span> <span class="toc-text">隐藏IP地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2"><span class="toc-number">12.</span> <span class="toc-text">部署全文搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-1"><span class="toc-number">12.1.</span> <span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-number">12.2.</span> <span class="toc-text">添加软件源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85ES"><span class="toc-number">12.3.</span> <span class="toc-text">安装ES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8ES"><span class="toc-number">12.4.</span> <span class="toc-text">启动ES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="toc-number">12.5.</span> <span class="toc-text">分配内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0mastodon%E4%B8%93%E7%94%A8%E8%B4%A6%E5%8F%B7"><span class="toc-number">12.6.</span> <span class="toc-text">添加mastodon专用账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">12.7.</span> <span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2ES%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="toc-number">12.8.</span> <span class="toc-text">禁止ES自动更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E7%B4%A2%E5%BC%95"><span class="toc-number">12.9.</span> <span class="toc-text">部署索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E4%BB%A5%E5%90%8E%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="toc-number">13.</span> <span class="toc-text">迁移以后的工作</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.jpg"></div><div class="author-info-name">妙瓦草</div><div class="author-info-description"></div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/dongzhimin-xz" target="_blank">GitHub<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="https://cmx.dzm.pp.ua/@Network" target="_blank">长毛象<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="https://bsky.app/profile/dzm.pp.ua" target="_blank">BlueSky<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="../../../../archives"><span class="pull-top">日志</span><span class="pull-bottom">11</span></a><a class="author-info-articles-tags article-meta" href="../../../../tags"><span class="pull-top">标签</span><span class="pull-bottom">20</span></a><a class="author-info-articles-categories article-meta" href="../../../../categories"><span class="pull-top">分类</span><span class="pull-bottom">20</span></a></div><div class="friend-link"><a class="friend-link-text" href="https://dzm.pp.ua/" target="_blank">个人主页</a><a class="friend-link-text" href="https://cmx.dzm.pp.ua/" target="_blank">长毛象实例</a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">妙瓦种子</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">长毛象实例迁移</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2025-04-12 | 更新于 2025-04-13</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/">建站技术</a><i class="fa fa-angle-right" style="margin: 0 8px;"></i><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E8%BF%90%E7%BB%B4/">运维</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/">言论自由只在这里</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/Postfix%E9%85%8D%E7%BD%AE/">Postfix配置</a></div></div></div><div class="main-content"><p>本实例经过2次迁移，第1次迁移时，本博客也不存在，而且我也懒得写技术博客。当时本站只有20G大小，没有任何邮件功能，也没有全文搜索，字数限制和媒体限制也跟官方的一样小，富文本也不需要（不需要引用原文），置顶也没有超过10条。<span id="more"></span><br>本站的根本目的就是保证我不会因为被人恶意封号导致在网络上社会性死亡<del>，就跟吃屎喝尿求生存没什么两样</del>。<br>现在本站有了很多魔改功能（我自己不用也可以分享给象友们用，只要你们把我的代码抄去），配置了邮件功能以后，还邀请了几个象友来注册。所以迁移起来就有点讲究了，步骤也跟<a target="_blank" rel="noopener" href="https://docs.joinmastodon.org/">官方文档</a>大相径庭。如果你们要用我的代码从新部署你们自己的实例的话，本文也有很大参考价值。</p>
+<h1 id="面向的读者"><a href="#面向的读者" class="headerlink" title="面向的读者"></a>面向的读者</h1><p>我自己。如果你在Linux系统运维中，遇到难题，通过Google搜索找到这篇进行参考，能给你提供一些帮助，那再好不过了。😚</p>
+<h2 id="需要的基础知识"><a href="#需要的基础知识" class="headerlink" title="需要的基础知识"></a>需要的基础知识</h2><p>掌握越多Linux技巧越好，没有的话真的愿意学习就行。</p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>提前买好VPS。如果你要全新部署实例，申请域名和托管Cloudflare也建议提早进行，因为中国的域名备案要花8天（我不是中国域名，也没备案）。提早准备VPS和域名的时候，千万不要炫耀，发个推特&#x2F;朋友圈，图里还带IP和域名的，说“看这是我的新网站”。<br><img src="vain.jpg"><br>不然你实例上线那天被人DDOS，就欲哭无泪了。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>由于我的实例没有使用对象存储，全部文件都在本地，而新旧服务器都有400GB的硬盘，非常的划算，所以需要迁移媒体文件，因此服务器的迁移要多花好几个小时。<br>迁移媒体文件之前，首先要进行瘦身，第一步要删除7天以前的外站媒体文件。<br>在进行以下操作前，首先要切换到<code>mastodon</code>用户，进入<code>live</code>文件夹，以下本文不再赘述。操作如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br><span class="line"><span class="built_in">cd</span> live</span><br></pre></td></tr></table></figure>
+<p>删除媒体文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/tootctl media remove</span><br></pre></td></tr></table></figure>
+<p>删除未被引用的媒体文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/tootctl media remove-orphans</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡 <strong>温馨提醒：</strong> 以上操作耗时极长</p>
+</blockquote>
+<p>进行耗时极长的操作，或者需要后台运行的操作，除了<code>no hup</code>以外，还可以使用<code>tmux</code>。</p>
+<h2 id="几个简单的tmux操作"><a href="#几个简单的tmux操作" class="headerlink" title="几个简单的tmux操作"></a>几个简单的tmux操作</h2><h3 id="进入tmux"><a href="#进入tmux" class="headerlink" title="进入tmux"></a>进入tmux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure>
+<h3 id="终止tmux会话"><a href="#终止tmux会话" class="headerlink" title="终止tmux会话"></a>终止tmux会话</h3><p>在tmux界面运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<h3 id="脱离tmux"><a href="#脱离tmux" class="headerlink" title="脱离tmux"></a>脱离tmux</h3><p>在tmux界面下，按下Ctrl+B，再按下D。</p>
+<h3 id="检查tmux有多少会话"><a href="#检查tmux有多少会话" class="headerlink" title="检查tmux有多少会话"></a>检查tmux有多少会话</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+<h3 id="进入第一个tmux会话"><a href="#进入第一个tmux会话" class="headerlink" title="进入第一个tmux会话"></a>进入第一个tmux会话</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux attach</span><br></pre></td></tr></table></figure>
+
+<p>tmux操作还有很多，以上这些属于最常用的，够用了，不够用就搜索一下，或者查看阮一峰的教程。我只领你入门，靠这几招平A，助你在这个行业立足😀。</p>
+<blockquote>
+<p>💡说句题外话，systemd也可以用于程序后台运行，但可能有些大材小用了。如果需要断电重启后继续运行，请用它。</p>
+</blockquote>
+<p>此外最好还要发一下公告，让用户做好断开服务的准备。</p>
+<h1 id="准备新服务器"><a href="#准备新服务器" class="headerlink" title="准备新服务器"></a>准备新服务器</h1><p>如果你用的是vultr和digitalocean，我建议你在有时间部署时当天就买，不用提前。虽然安全方面比我这好，但是这种服务器很贵，不划算。如果你（为了节约成本，为了优惠）提前买了服务器，那么你的服务器可能会被黑客不停地扫描（我本来还想出一个brutespray的教程😈，以后有空再说吧，关注<a href="/tags/%E6%8F%90%E7%AF%AE%E6%A1%A5%E7%9A%84%E5%85%A5%E5%9C%BA%E5%88%B8/">提篮桥tag</a>），直到被破解变成肉鸡。不仅是你的损失，你对自己资产和隐私的疏忽和漠视也是对公共安全的一大危害。所以我建议你服务器刚买，但还没来得及改密码的时候先关机，等到需要用了再直接重装系统。</p>
+<h2 id="更改登录方式"><a href="#更改登录方式" class="headerlink" title="更改登录方式"></a>更改登录方式</h2><p>我们最怕的就是我们的ssh被别人登录了。这也是我们接触服务器操作系统的唯一界面。有两种办法在一定程度上避免被别人强行登录：</p>
+<ol>
+<li>禁止密码登录，改用非对称加密或TOTP登录。</li>
+<li>修改ssh端口，不再使用22端口<br>这两种方法最好都用。非对称加密的原理我不再赘述，自己去搜索去学习。别人要想破解RSA2048加密，只有试个至少2^2048遍才能登进去了吧？<br>修改ssh端口其实也没卵用，用<a target="_blank" rel="noopener" href="https://fofa.info/">https://fofa.info</a> 一下就能查出来你服务器改了什么端口。用专业工具扫描也可以轻松破解。但这对于专杀菜鸟的黑客还是相当有用的，<strong>你跟他无冤无仇，而且他知道你不是菜鸟，就不攻击你了。</strong></li>
+</ol>
+<h3 id="禁止密码登录"><a href="#禁止密码登录" class="headerlink" title="禁止密码登录"></a>禁止密码登录</h3><p>在重装系统时，你直接选择ssh-key登录。各种工具都有它自己的生成密钥方式，请自己上网搜索。</p>
+<ul>
+<li>其中XShell的密钥生成方式就是单击菜单栏<code>工具</code>，再单击<code>用户密钥管理者</code>。根据向导生成密钥，生成期间多动鼠标，生成以后即可复制公钥。要寻找已生成密钥的公钥，双击打开这个密钥的属性，单击<code>公钥</code>选项卡，复制全部内容给VPS控制台。</li>
+<li>openssh的密钥生成方式直接使用<code>ssh-keygen</code>，直接用文本编辑器打开生成的.pub文件，复制全部内容即可。</li>
+</ul>
+<p>重装后的系统即可使用密钥登录。如果不能重装密钥登录，那还可以在Linux系统内设置。</p>
+<ul>
+<li>打开<code>~/.ssh/authorized_keys</code>，另起一行，直接将你的公钥复制进去即可。多个公钥的话，一行一个公钥就行。<br>设置完公钥后，重新登录服务器，XShell用户请注意界面<br><img src="xshell-login.png"><br>Password一定要变灰，否则黑客还是可以试出你的密码登录进去。如果是其他软件用户，则尝试输入正确密码登录服务器，如果无法使用密码登录，或者正确密码无法登录，则配置正确。</li>
+</ul>
+<p>如果配置不正确，则修改配置。目前Ubuntu 24.04.1 LTS的配置方法如下：</p>
+<ul>
+<li>进入ssh配置目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ssh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开ssh配置文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sshd_config</span><br></pre></td></tr></table></figure>
+<ul>
+<li>找到<code>PasswordAuthentication</code>配置，取消注释，后面的值改为<code>no</code>，并保存文件<blockquote>
+<p><strong>注意：</strong> 进行禁用密码操作时，<strong>必须</strong>用密钥登录。否则，虽然可行，但是如果发生意外，则只能进入救援系统或者重装系统！</p>
+</blockquote>
+</li>
+<li>重启ssh服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart ssh</span><br></pre></td></tr></table></figure>
+<p>验证是否能用密码，如果还能用密码，则重启<code>sshd.service</code>和<code>ssh.socket</code>服务。这些新旧版本的系统使用方式都各不相同！</p>
+<h3 id="更改端口"><a href="#更改端口" class="headerlink" title="更改端口"></a>更改端口</h3><p>最新版本的 Ubuntu 24.04 LTS现已无法用<code>sshd_config</code>修改ssh端口。正确修改方法如下</p>
+<ul>
+<li>进入systemd目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/systemd/system</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ls</code>显示目录内容，找到ssh开头的目录，进入</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ssh.service.requires/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改<code>ssh.socket</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ssh.socket</span><br></pre></td></tr></table></figure>
+<ul>
+<li>先添加新端口，再删除旧端口。每次更改，都必须运行一次<code>systemctl daemon-reload</code>再重启ssh服务<br>经过验证，旧端口无法使用后即完成。</li>
+</ul>
+<blockquote>
+<p><strong>温馨提示：</strong> 先不要改掉22端口！后面用<code>rsync</code>同步文件时可以少打好几次参数！</p>
+</blockquote>
+<h2 id="系统升级"><a href="#系统升级" class="headerlink" title="系统升级"></a>系统升级</h2><p>系统内的软件有很多安全漏洞，更新到最新版本进行修复。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="分配虚拟内存"><a href="#分配虚拟内存" class="headerlink" title="分配虚拟内存"></a>分配虚拟内存</h2><p>由于本实例要用ElasticSearch，所以需要分配虚拟内存</p>
+<ul>
+<li>查看交换空间</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon --show</span><br></pre></td></tr></table></figure>
+<p>如果没有虚拟内存，则继续</p>
+<ul>
+<li>分配虚拟内存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fallocate -l 4G /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置文件权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li>格式化虚拟内存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li>挂载虚拟内存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置开机挂载虚拟内存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fstab</span><br></pre></td></tr></table></figure>
+<p>添加一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile none swap defaults 0 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装fail2ban"><a href="#安装fail2ban" class="headerlink" title="安装fail2ban"></a>安装fail2ban</h2><p>直接参考<a target="_blank" rel="noopener" href="https://docs.joinmastodon.org/admin/prerequisites/#install-fail2ban-so-it-blocks-repeated-login-attempts">官方文档</a>进行操作</p>
+<ul>
+<li>直接用包管理器安装</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install fail2ban</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接编辑或新建<code>/etc/fail2ban/jail.local</code><br>插入以下内容</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[DEFAULT]</span><br><span class="line">destemail = your@email.here</span><br><span class="line">sendername = Fail2Ban</span><br><span class="line"></span><br><span class="line">[sshd]</span><br><span class="line">enabled = true</span><br><span class="line">port = 22</span><br><span class="line">mode = aggressive</span><br></pre></td></tr></table></figure>
+<p>其中<code>port</code>改为你的ssh端口，邮箱改为你平时用的邮箱（如果你不想接收黑客入侵提醒，可不改，毕竟天天开着brutespray这种工具的虫豸实在是太多了🤬）<br>完成后，重启fail2ban进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart fail2ban</span><br></pre></td></tr></table></figure>
+
+<p>现在，你的fail2ban已经可以阻止密码&#x2F;密钥爆破了。其实禁止密码后，就已经很安全了，但还是建议安装fail2ban。验证方式就是，你挂上你最不常用的梯子出口节点，你先用错误的登录方式登录5遍，第6遍错误尝试时会被拒绝得特别快。再用正确方式登录，发现登录不了了，这就是fail2ban生效了。</p>
+<p>接下来可以配置fail2ban邮件提醒，可以在有人被禁和程序重启时发出邮件进行警告。当然也可以不配置。</p>
+<h3 id="fail2ban配置邮件提醒"><a href="#fail2ban配置邮件提醒" class="headerlink" title="fail2ban配置邮件提醒"></a>fail2ban配置邮件提醒</h3><p>fail2ban默认是不发送邮件的。需要修改<code>/etc/fail2ban/jail.conf</code>内的配置。</p>
+<ul>
+<li>打开该文件，找到<code>action = %(action_)s</code>这一行，把<code>action_</code>改为<code>action_mw</code>。这样在ban可疑IP时会发送邮件了。</li>
+<li>找到<code>mta = sendmail</code>，把值改为<code>mail</code>。这样它会使用<code>mail</code>命令通过系统发送邮件。（这时<code>mail</code>还不能发送邮件，后面讲如何配置，内容较为复杂<del>我没义务包教包会，倒是你有义务交版权费</del>）</li>
+<li>修改<code>destemail</code>为你的常用邮箱（安全起见，也可以发到不常用邮箱，再设置自动转发）。</li>
+<li>修改<code>sender</code>为<code>root@&lt;你的主机名&gt;</code>。<br>这个值，我要解释一下远古时期（上个世纪）邮箱发明时的原理了。最早没有什么网易邮箱、谷歌邮箱、微软邮箱，网络上每台电脑都能当邮箱服务器，既能收又能发，不用配什么POP3和SMTP。邮箱地址@前面的字符是用户名，就是你在这台电脑上的用户名；邮箱地址@后面的是主机名，就是你这台电脑在网络上的名称。你要发邮件给小明，你就直接登录你单位唯一那台电脑，那么发件人就是<code>&lt;你的名字&gt;@&lt;你的电脑名称&gt;</code>。邮件发送时，电脑解析出收件人的主机名，把你的邮件发到小明单位的电脑上，小明一登录就能收到你的邮件。<br>等我讲到配置postfix时会进一步解释。</li>
+</ul>
+<p>修改完后重启fail2ban。</p>
+<h3 id="fail2ban配置重启提醒"><a href="#fail2ban配置重启提醒" class="headerlink" title="fail2ban配置重启提醒"></a>fail2ban配置重启提醒</h3><p>打开<code>/etc/fail2ban/action.d/mail-whois.conf</code>，修改最后一行<code>dest</code>，地址改为你的常用邮箱。<br>改完重启fail2ban生效。</p>
+<h3 id="postfix的安装与配置"><a href="#postfix的安装与配置" class="headerlink" title="postfix的安装与配置"></a>postfix的安装与配置</h3><blockquote>
+<p>这一条应该在前面写，但是考虑到邮件提醒必要性不大，同时还会打断fail2ban的讲解。</p>
+</blockquote>
+<p>在全新的Ubuntu系统中，试图使用<code>mail</code>命令发送邮件，它会提醒你安装<code>mailutils</code>。使用<code>apt install mailutils</code>，它会自动安装<code>postfix</code>。邮件发送似乎只有postfix好用，我在第1次迁移实例时已经踩过这个坑了。</p>
+<ul>
+<li>邮箱服务的选用<br>如果你不怕泄露隐私,可以直接用网易邮箱来给长毛象实例使用。但缺点就是smtp密码有效期只有半年，半年后就得重新设置，否则可能导致错过重要邮件。<br>现在对我来说，最好的邮箱服务就是飞书国际版。注册教程如下所示：<br><a target="_blank" rel="noopener" href="https://uuzi.net/lark-international-smtp-email-sending-guide/">https://uuzi.net/lark-international-smtp-email-sending-guide/</a><br>亚马逊、sendgrid什么的都不行。</li>
+</ul>
+<p>安装postfix时，它会要你选择几种模式，你选择带有<code>Satellite</code>的那个选项就行了。安装完成后，需要修改配置文件。进入<code>/etc/postfix</code>目录，首先修改<code>main.cf</code>文件。<br>强烈建议修改前进行备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> main.cf main.cf.bak</span><br></pre></td></tr></table></figure>
+<p>修改内容：</p>
+<ul>
+<li>首先把<code>relayhost</code>改为<code>[smtp.larsuite.com]:465</code>。方括号一律不能少，否则会出问题。</li>
+<li>修改<code>smtp_tls_security_level</code>，如果协议为STARTTLS,则修改为<code>may</code>；协议为TLS则修改为<code>encrypt</code>。</li>
+<li>添加如下内容：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># enable SASL authentication</span><br><span class="line">smtp_sasl_auth_enable = yes</span><br><span class="line"></span><br><span class="line"># disallow methods that allow anonymous authentication.</span><br><span class="line">smtp_sasl_security_options = noanonymous</span><br><span class="line"></span><br><span class="line"># where to find sasl_passwd</span><br><span class="line">smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd</span><br><span class="line"></span><br><span class="line"># where to find generic</span><br><span class="line">smtp_generic_maps = hash:/etc/postfix/generic</span><br><span class="line"></span><br><span class="line"># Enable STARTTLS encryption</span><br><span class="line">smtp_use_tls = yes</span><br><span class="line"></span><br><span class="line"># where to find CA certificates</span><br><span class="line">smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt</span><br><span class="line"></span><br><span class="line"># Enable tls encryption</span><br><span class="line">smtp_tls_wrappermode = yes</span><br></pre></td></tr></table></figure>
+<p>用简单密码来登录smtp邮箱。<br>修改后，执行<code>postfix reload</code>生效。<br>但此时还不能生效，如上所示，还缺<code>generic</code>和<code>sasl_passwd</code>两个文件。其中<code>generic</code>是本机邮箱地址（用户名@主机名）和发件人的对应关系；<code>sasl_passwd</code>是发件人和密码的对应关系。发件人邮箱就是你在smtp服务商（我的是飞书）。</p>
+<ul>
+<li>首先新建<code>generic</code>文件：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim generic</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加如下内容：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@&lt;我的主机名&gt;   fail2ban@dzm.pp.ua</span><br></pre></td></tr></table></figure>
+<p>其中<code>&lt;我的主机名&gt;</code>和用户名就是命令提示符前的当前路径冒号前面的那段。保存后执行<code>postmap generic</code>，会生成一个<code>generic.db</code>。</p>
+<ul>
+<li>再新建<code>sasl_passwd</code>：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sasl_passwd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加如下内容：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[smtp.larksuite.com]:465    fail2ban@dzm.pp.ua:&lt;我的密码&gt;</span><br></pre></td></tr></table></figure>
+<p>显然，是发件人：密码（真正的密码在飞书设置和修改）和服务器的对应关系。保存后还是执行<code>postmap sasl_passwd</code>。</p>
+<ul>
+<li>执行<code>postfix reload</code>，显示<code>postfix/postfix-script: refreshing the Postfix mail system</code>即为设置成功。</li>
+</ul>
+<h4 id="postfix配置的验证"><a href="#postfix配置的验证" class="headerlink" title="postfix配置的验证"></a>postfix配置的验证</h4><p>配置完成后，你可以执行如下命令给自己发邮件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mail &lt;你的邮箱&gt;</span><br></pre></td></tr></table></figure>
+<p>输入抄送人、主题后，即可输入正文。正文编辑完毕后，按下Ctrl+D组合键发送。<br>发送时，执行<code>mailq</code>即可查看邮件发送状况。没有错误提示，且几秒后再执行<code>mailq</code>，提示<code>Mail queue is empty</code>,即为发送成功。<br>再执行<code>mail</code>，如果显示没有邮件，则邮件已离开发件服务器。<br>失效模式：</p>
+<ul>
+<li><code>mailq</code>有报错：本机配置问题，本机网络问题，密码问题，账号问题等</li>
+<li><code>mail</code>收到退信：违反smtp提供商的发信政策，提供商服务到期，提供商的服务未续费，接收方退信等</li>
+<li>都没报错：邮件被接收方拦截，请查看垃圾邮件，或者更换收件邮箱进行测试</li>
+</ul>
+<h3 id="验证fail2ban"><a href="#验证fail2ban" class="headerlink" title="验证fail2ban"></a>验证fail2ban</h3><p>挂梯子不常用节点，用错误方式登录5次，或重启fail2ban。有问题则排查postfix故障。</p>
+<h2 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h2><p>此配置因VPS而异。好的提供商，自带防火墙面板。可以把ufw关掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+<p>再在面板设置防火墙策略。<br>防火墙对于长毛象实例是很必要的，因为它可能会暴露3000端口、4000端口，甚至让黑客尽情地注入。还有数据库、ES搜索、redis等长毛象依赖服务都可能暴露端口。配好防火墙，才能让长毛象实例的进程间通信只在本机内访问。</p>
+<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><p>安装nginx是我验证防火墙和CDN的重要方式。我直接先安装nginx</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install nginx</span><br></pre></td></tr></table></figure>
+<p>安装完成后，它就会即刻启动。我直接打开防火墙端口，在浏览器访问我VPS的IP地址（所以网站上线前必须保持低调）。如果显示“Welcome to nginx！”，则说明nginx安装成功，且防火墙开放。如果无法显示，排除了nginx的问题以后，多找找防火墙的问题。默认的Linux防火墙和面板防火墙，都是随VPS不同，因人而异的。</p>
+<h3 id="配置仅允许cloudflare"><a href="#配置仅允许cloudflare" class="headerlink" title="配置仅允许cloudflare"></a>配置仅允许cloudflare</h3><p>nginx测试通畅后，由于我没面板，所以只能配置ufw。配置时还是要注意不能搞得无法登录了。</p>
+<ul>
+<li>开启ufw</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>允许ssh</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw allow 22/tcp</span><br></pre></td></tr></table></figure>
+<ul>
+<li>允许80</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw allow 80/tcp</span><br></pre></td></tr></table></figure>
+<p>这样就能用浏览器访问VPS的IP地址了</p>
+<ul>
+<li>在cloudflare解析并代理VPS的地址。<br>由于是迁移，我解析测试用的子域名到我的VPS。用<a target="_blank" rel="noopener" href="https://whatsmydns.net/">https://whatsmydns.net</a> 检查是否开启代理，再用浏览器访问我的域名。<br>如果是新部署的实例，你可以直接解析你的实例域名到VPS。<br>这时应该都能显示“Welcome to nginx”。如果不行，就在cloudflare设置规则，该域名的SSL加密设置为“灵活”。<br>关闭80端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw delete allow 80/tcp</span><br></pre></td></tr></table></figure>
+<p>此时无法访问VPS的网页。<br>将3个脚本上传到服务器，并赋予执行权限。<br>add.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/scripts/ufw</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ipv4 <span class="keyword">in</span> `curl -sL https://www.cloudflare.com/ips-v4/ | <span class="built_in">tee</span> ips-v4`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">sudo</span> ufw allow from <span class="variable">$ipv4</span> to any port 80 proto tcp</span><br><span class="line">    <span class="built_in">sudo</span> ufw allow from <span class="variable">$ipv4</span> to any port 443 proto tcp</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ipv6 <span class="keyword">in</span> `curl -sL https://www.cloudflare.com/ips-v6/ | <span class="built_in">tee</span> ips-v6`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">sudo</span> ufw allow from <span class="variable">$ipv6</span> to any port 80 proto tcp</span><br><span class="line">    <span class="built_in">sudo</span> ufw allow from <span class="variable">$ipv6</span> to any port 443 proto tcp</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上脚本会将所有cloudflare的IP地址加入ufw白名单中。<br>remove.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/scripts/ufw</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ipv4 <span class="keyword">in</span> `<span class="built_in">cat</span> ips-v4`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">sudo</span> ufw delete allow from <span class="variable">$ipv4</span> to any port 80 proto tcp</span><br><span class="line">    <span class="built_in">sudo</span> ufw delete allow from <span class="variable">$ipv4</span> to any port 443 proto tcp</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ipv6 <span class="keyword">in</span> `<span class="built_in">cat</span> ips-v6`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">sudo</span> ufw delete allow from <span class="variable">$ipv6</span> to any port 80 proto tcp</span><br><span class="line">    <span class="built_in">sudo</span> ufw delete allow from <span class="variable">$ipv6</span> to any port 443 proto tcp</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -f ips-v4 ips-v6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上脚本会删除<code>add.sh</code>添加的一切IP。<br>update.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/scripts/ufw</span><br><span class="line"></span><br><span class="line">curl -sL https://www.cloudflare.com/ips-v4/ -o ips-v4.new</span><br><span class="line">curl -sL https://www.cloudflare.com/ips-v6/ -o ips-v6.new</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ! cmp -s ips-v4 ips-v4.new || ! cmp -s ips-v6 ips-v6.new || [ ! -f ips-v4 ] || [ ! -f ips-v6 ]; <span class="keyword">then</span></span><br><span class="line">    bash remove.sh</span><br><span class="line">    bash add.sh</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -f ips-v4.new ips-v6.new</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上脚本会自动更新<code>add.sh</code>添加的IP。</p>
+<p>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./add.sh</span><br></pre></td></tr></table></figure>
+<p>就会发现IP地址已无法访问网页，但是域名可以访问网页。</p>
+<h1 id="部署长毛象实例"><a href="#部署长毛象实例" class="headerlink" title="部署长毛象实例"></a>部署长毛象实例</h1><p>刚才已完成网络安全的配置，黑客很难对本站的IP地址和端口进行扫描了。接下来就可以正式开始迁移了。此时旧服务器仍然无需停机。</p>
+<h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><p>以下是从官网安装时，传输和防中间人攻击用的软件，用如下命令安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install -y curl wget gnupg apt-transport-https lsb-release ca-certificates</span><br></pre></td></tr></table></figure>
+<p>然后依照官方文档安装长毛象的依赖环境，没有如下软件，长毛象将无法运行</p>
+<h2 id="添加Node-js软件源"><a href="#添加Node-js软件源" class="headerlink" title="添加Node.js软件源"></a>添加Node.js软件源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main&quot;</span> | <span class="built_in">tee</span> /etc/apt/sources.list.d/nodesource.list</span><br></pre></td></tr></table></figure>
+<h2 id="添加PostgreSQL软件源"><a href="#添加PostgreSQL软件源" class="headerlink" title="添加PostgreSQL软件源"></a>添加PostgreSQL软件源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O /usr/share/keyrings/postgresql.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/usr/share/keyrings/postgresql.asc] http://apt.postgresql.org/pub/repos/apt <span class="subst">$(lsb_release -cs)</span>-pgdg main&quot;</span> &gt; /etc/apt/sources.list.d/postgresql.list</span><br></pre></td></tr></table></figure>
+<h2 id="安装全部依赖"><a href="#安装全部依赖" class="headerlink" title="安装全部依赖"></a>安装全部依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y \</span><br><span class="line">  imagemagick ffmpeg libvips-tools libpq-dev libxml2-dev libxslt1-dev file git-core \</span><br><span class="line">  g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf \</span><br><span class="line">  bison build-essential libssl-dev libyaml-dev libreadline6-dev \</span><br><span class="line">  zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev \</span><br><span class="line">  nginx nodejs redis-server redis-tools postgresql postgresql-contrib \</span><br><span class="line">  certbot python3-certbot-nginx libidn11-dev libicu-dev libjemalloc-dev</span><br></pre></td></tr></table></figure>
+<p>开启corepack</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">corepack <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="创建mastodon用户"><a href="#创建mastodon用户" class="headerlink" title="创建mastodon用户"></a>创建mastodon用户</h1><p>长毛象实例必须在自己的用户下运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser --disabled-password mastodon</span><br></pre></td></tr></table></figure>
+<p>之前的安全设置也是防止有人登录mastodon用户摧毁你的实例。</p>
+<h1 id="配置PostgreSQL数据库"><a href="#配置PostgreSQL数据库" class="headerlink" title="配置PostgreSQL数据库"></a>配置PostgreSQL数据库</h1><h2 id="优化性能"><a href="#优化性能" class="headerlink" title="优化性能"></a>优化性能</h2><p>登录<a target="_blank" rel="noopener" href="https://pgtune.leopard.in.ua/#/">PGTune</a>，将你的PostgreSQL版本和VPS配置输入进去，点击<code>Generate</code>，复制出生成的配置信息。再找到文件<code>/etc/postgresql/17/main/postgresql.conf</code>（如果版本不同，则可能路径有变化，但是文件名应该不会变）。建议做好备份<code>cp postgresql.conf postgresql.conf.bak</code>。<br>我建议将文件从VPS下载到本地，用vscode改，用文件内搜索功能找到对应行，解除注释（如果有的话），进行修改。</p>
+<blockquote>
+<p><strong>注意：</strong> 千万不要用<a target="_blank" rel="noopener" href="https://pgtune.leopard.in.ua/#/">PGTune</a>生成的配置覆盖整个<code>postgresql.conf</code>！否则postgresql将无法启动！<br>修改后记得重启postgresql</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart postgresql</span><br></pre></td></tr></table></figure>
+<h2 id="创建数据库用户"><a href="#创建数据库用户" class="headerlink" title="创建数据库用户"></a>创建数据库用户</h2><p>不论是新部署实例还是迁移实例，都要创建mastodon用户</p>
+<ul>
+<li>进入数据库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> -u postgres psql</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建用户</li>
+</ul>
+<figure class="highlight postgresql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> mastodon <span class="keyword">CREATEDB</span>;</span><br><span class="line">\q</span><br></pre></td></tr></table></figure>
+
+<h1 id="从GitHub安装长毛象实例"><a href="#从GitHub安装长毛象实例" class="headerlink" title="从GitHub安装长毛象实例"></a>从GitHub安装长毛象实例</h1><p>切换到mastodon用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br></pre></td></tr></table></figure>
+<p>在mastodon用户的home目录克隆我的代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/dongzhimin-xz/mastodon.git live &amp;&amp; <span class="built_in">cd</span> live</span><br></pre></td></tr></table></figure>
+<p>再用<code>git checkout</code>切换到我最新提交的tag上。</p>
+<h2 id="安装Ruby"><a href="#安装Ruby" class="headerlink" title="安装Ruby"></a>安装Ruby</h2><p>就在<code>mastodon</code>用户下执行安装ruby的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/rbenv/rbenv.git ~/.rbenv</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(rbenv init -)&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">exec</span> bash</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/rbenv/ruby-build.git <span class="string">&quot;<span class="subst">$(rbenv root)</span>&quot;</span>/plugins/ruby-build</span><br></pre></td></tr></table></figure>
+<p>以上命令我建议<strong>逐行</strong>复制执行，避免有漏错<br>最后安装ruby</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install</span><br></pre></td></tr></table></figure>
+<h2 id="安装长毛象依赖的Ruby和Node-js组件"><a href="#安装长毛象依赖的Ruby和Node-js组件" class="headerlink" title="安装长毛象依赖的Ruby和Node.js组件"></a>安装长毛象依赖的Ruby和Node.js组件</h2><p>逐行执行如下命令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bundle config deployment <span class="string">&#x27;true&#x27;</span></span><br><span class="line">bundle config without <span class="string">&#x27;development test&#x27;</span></span><br><span class="line">bundle install -j$(getconf _NPROCESSORS_ONLN)</span><br><span class="line">yarn install</span><br></pre></td></tr></table></figure>
+<h1 id="开始迁移实例"><a href="#开始迁移实例" class="headerlink" title="开始迁移实例"></a>开始迁移实例</h1><p><del>完成以上步骤后，根据官方文档，直接运行<code>RAILS_ENV=production bin/rails mastodon:setup</code>就能部署新实例了，但我今天是要迁移</del><br>现在起，就开始迁移数据。旧实例仍然无需停机，因为我有50GB的媒体文件需要迁移。</p>
+<h2 id="迁移前的准备"><a href="#迁移前的准备" class="headerlink" title="迁移前的准备"></a>迁移前的准备</h2><p>迁移最常用的软件就是rsync，它可以让你在你的公网服务器间快速地传输文件。也可以保证本地文件备份同步，当然本文只用来在网络上传输文件。<br>rsync使用ssh协议进行文件传输，所以前面我建议先不要改掉ssh端口号22。所以可以通过密钥来登录。</p>
+<ol>
+<li>首先切换到<code>mastodon</code>用户</li>
+<li>在旧服务器上使用<code>ssh-keygen</code>生成密钥</li>
+<li>将旧服务器生成的<code>.pub</code>密钥下载下来</li>
+<li>登录到新服务器，将前面下载的公钥复制到<code>/home/mastodon/.ssh/authorized_keys</code>新加的最后一行<br>如果没有该文件，就把<code>.pub</code>结尾的文件直接上传到它的目录下，并用<code>chown</code>把文件所有人更改为<code>mastodon</code>用户。<br><code>root</code>用户也一样。在root用户下生成密钥，密钥位置在<code>/root/.ssh</code>目录下。<br>这样，旧服务器就可以用ssh登录新服务器了（迁移完成后，记得把刚才在<code>authorized_keys</code>下添加的删除，这样就能直接取消旧机器登录新机器的权限）</li>
+</ol>
+<h2 id="迁移媒体文件"><a href="#迁移媒体文件" class="headerlink" title="迁移媒体文件"></a>迁移媒体文件</h2><p>登录旧机器，进入<code>tmux</code>界面。<code>tmux</code>的好处在于你在此界面中即使意外断线了，你刚才在界面中运行的程序仍然不会中止，而普通的ssh会话，里面的程序会随着会话中断而中断。</p>
+<blockquote>
+<p>你在正式迁移前可以再次用<code>bin/tootctl media remove</code>等命令清理一下文件进行瘦身，但从时间成本上考虑，必要性不大。迁移开始后就不要再清理文件了，以免新旧机器文件不同步。</p>
+</blockquote>
+<p>在<code>tmux</code>界面中，执行如下命令开始迁移</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz --progress ~/live/public/system/ mastodon@&lt;你的新IP&gt;:~/live/public/system/</span><br></pre></td></tr></table></figure>
+<p>&lt;你的新IP&gt;直接换成你的IP地址，当然也不要加尖括号。<br>这样它就正式开始迁移了。在此期间，你可以关掉会话去做别的事情，大约会花4小时。<br>一般来说，我还是建议使用对象存储，备份、恢复和迁移更加灵活省事。对于大实例来说，成本也更加划算。如果实例发生意外，这么大个文件夹都由第三方保管，也确实令人放心。</p>
+<p>迁移完成后，旧实例该停机了。</p>
+<h2 id="旧实例停机"><a href="#旧实例停机" class="headerlink" title="旧实例停机"></a>旧实例停机</h2><blockquote>
+<p>在此之前，我建议先存个快照</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop mastodon-*</span><br></pre></td></tr></table></figure>
+<p>完事以后，看看<code>systemctl status</code>，确认一些长毛象进程是否中止，不要让它再改动数据了。<br>也可以再用<code>rsync -avz --progress ~/live/public/system/ mastodon@&lt;你的新IP&gt;:~/live/public/system/</code>同步一下，但是还会再花掉2小时进行同步。</p>
+<p>新实例运行后，旧实例的所有<code>mastodon-sidekiq</code>都应该终止并禁止开机启动，否则会导致你实例在联邦中重复访问联合。</p>
+<h2 id="迁移数据库"><a href="#迁移数据库" class="headerlink" title="迁移数据库"></a>迁移数据库</h2><p>数据库是最重要的，先进行同步。</p>
+<ul>
+<li>登录旧机器，进入<code>mastodon</code>用户，直接导出数据库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br><span class="line">pg_dump -Fc mastodon_production -f backup.dump</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用<code>rsync</code>将<code>backup.dump</code>传到新机器的<code>mastodon</code>用户目录下</li>
+<li>登录新机器，切换到<code>mastodon</code>用户，创建长毛象实例的数据库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br><span class="line">createdb -T template0 mastodon_production</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将<code>backup.dump</code>恢复到数据库中</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pg_restore -Fc -j4 -U mastodon -n public --no-owner --role=mastodon \</span><br><span class="line">  -d mastodon_production backup.dump</span><br></pre></td></tr></table></figure>
+<p>其中，<code>-j4</code>是因为我VPS为4核。</p>
+<h2 id="迁移其他文件"><a href="#迁移其他文件" class="headerlink" title="迁移其他文件"></a>迁移其他文件</h2><ul>
+<li><code>.env.production</code>也是非常重要的文件，没有它，实例就无法运行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br><span class="line">rsync -avz --progress ~/live/.env.production mastodon@&lt;你的新IP&gt;:~/live/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我的<code>mastodon-sidekiq</code>文件经过自定义，所以不能使用全新的，也要进行迁移<br>在root用户下进行</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz --progress /etc/systemd/system/mastodon-* root@&lt;你的新IP&gt;:/etc/systemd/system/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>还有GOST文件也要迁移</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz --progress /etc/systemd/system/gost.service root@&lt;你的新IP&gt;:/etc/systemd/system/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我的nginx文件也经过自定义，里面包括了显示用户IP地址的设置，所以也要迁移（在root用户下进行）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz --progress /etc/nginx/sites-available/ root@&lt;你的新IP&gt;:/etc/nginx/sites-available</span><br></pre></td></tr></table></figure>
+<ul>
+<li>迁移后，别忘了在新服务器上使nginx配置生效</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /etc/nginx/sites-available/mastodon /etc/nginx/sites-enabled/mastodon</span><br></pre></td></tr></table></figure>
+<p>先执行<code>nginx -t</code>如果没有报错，显示一切OK，那么就可以重启nginx服务使配置生效</p>
+<h2 id="迁移Redis文件"><a href="#迁移Redis文件" class="headerlink" title="迁移Redis文件"></a>迁移Redis文件</h2><ul>
+<li>登录新机器，停止redis进程</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop redis-server.service</span><br></pre></td></tr></table></figure>
+<ul>
+<li>登录旧机器，将redis文件传入新机器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-cli SAVE</span><br><span class="line">systemctl stop redis-server.service</span><br><span class="line">rsync -avz --progress /var/lib/redis/ root@&lt;你的新IP&gt;:/var/lib/redis</span><br></pre></td></tr></table></figure>
+<p>完事就可以启动新机器的redis了</p>
+<p>至此，实例已迁移完毕，可以删除旧机器的公钥了。记得<code>/root/.ssh</code>和<code>/home/mastodon/.ssh</code>两个文件夹下都有。</p>
+<h2 id="编译新实例"><a href="#编译新实例" class="headerlink" title="编译新实例"></a>编译新实例</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAILS_ENV=production bundle <span class="built_in">exec</span> rails assets:precompile</span><br></pre></td></tr></table></figure>
+<p>等待至少30分钟，没有报错则可继续。</p>
+<p>为了以后在维护新实例时，不用再输入<code>RAILS_ENV=production</code>，可在<code>/home/mastodon/.bashrc</code>结尾加上一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动新实例"><a href="#启动新实例" class="headerlink" title="启动新实例"></a>启动新实例</h2><p>重新加载<code>systemd</code>，启动redis和所有长毛象进程（并设置开机自启）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start redis-server  </span><br><span class="line">systemctl <span class="built_in">enable</span> --now mastodon-web mastodon-sidekiq mastodon-sidekiq2 mastodon-streaming  </span><br><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure>
+<p>此时，长毛象进程开始启动。在启动时，不宜允许用户进行频繁登录，所以在重新解析地址之前进行。<br>在启动nginx或验证nginx配置时，可能会提示缺少证书。完成以下步骤以后解决</p>
+<h2 id="重新解析域名"><a href="#重新解析域名" class="headerlink" title="重新解析域名"></a>重新解析域名</h2><ol>
+<li>进入Cloudflare，修改DNS记录，修改cmx的A和AAAA记录。</li>
+<li>左侧选择<code>SSL/TLS</code>&gt;<code>概述</code>，在此界面，先把<code>SSL/TLS加密</code>改为<code>完全</code>。在这种模式下，服务器没有证书也可以访问，以便用certbot申请证书。</li>
+</ol>
+<h2 id="Certbot申请证书"><a href="#Certbot申请证书" class="headerlink" title="Certbot申请证书"></a>Certbot申请证书</h2><p>在你的新实例服务器执行以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --nginx -d cmx.dzm.pp.ua</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意把域名替代成你自己的</p>
+</blockquote>
+<p>这样即可申请全新证书，有效期90天。原理就是certbot在你机器上生成了一些信息，letsencrypt通过DNS解析到了CDN，CDN访问了你机器上生成的信息，传给了letsencrypt。letsencrypt依据这个认定此域名归你所有，给你颁发SSL证书。<br>然后登录你的网页端，能显示首页即为成功。<br>如果有问题，再重启一下nginx解决上述缺少证书的问题。<br>成功后，别忘记把Cloudflare设置改回去。</p>
+<h3 id="新实例网页无法正常显示"><a href="#新实例网页无法正常显示" class="headerlink" title="新实例网页无法正常显示"></a>新实例网页无法正常显示</h3><p>我在迁移后遇到了这个问题，曾一度把DNS切回去。解决方式如同<a target="_blank" rel="noopener" href="https://docs.joinmastodon.org/admin/install/#setting-up-nginx">官方文档</a>从新安装篇所述</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> o+x /home/mastodon</span><br></pre></td></tr></table></figure>
+<p>赋予<code>mastodon</code>用户文件夹，所有用户执行权限。</p>
+<blockquote>
+<p>我当时也是把所有长毛象组件删了装，装了删，最后才发现是这个原因&#x2F;(ㄒoㄒ)&#x2F;~~</p>
+</blockquote>
+<h3 id="设置证书自动更新"><a href="#设置证书自动更新" class="headerlink" title="设置证书自动更新"></a>设置证书自动更新</h3><p>编辑crontab</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>在最后一行添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 14 1 */2 * certbot renew --force-renewal</span><br></pre></td></tr></table></figure>
+<p>意思是每2个月的1日服务器当地时间14:00更新证书。<br>避免90天后实例无法访问，需要手动登录cloudflare更改配置。</p>
+<h1 id="重建时间线"><a href="#重建时间线" class="headerlink" title="重建时间线"></a>重建时间线</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAILS_ENV=production ./bin/tootctl feeds build</span><br></pre></td></tr></table></figure>
+
+<h1 id="隐藏IP地址"><a href="#隐藏IP地址" class="headerlink" title="隐藏IP地址"></a>隐藏IP地址</h1><p><a href="/2025/04/12/Warp%E4%BB%A3%E7%90%86%EF%BC%88%E9%9D%9EDocker%E7%89%88%EF%BC%89/">前面的文章</a>我就说过为什么要迁移了。现在直接上步骤<br>其中改配置文件和编辑systemd文件都可以省掉，因为这些文件都是从旧服务器迁移来的。</p>
+<ul>
+<li>安装Cloudflare WARP</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | <span class="built_in">sudo</span> gpg --<span class="built_in">yes</span> --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ <span class="subst">$(lsb_release -cs)</span> main&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/cloudflare-client.list</span><br><span class="line"><span class="built_in">sudo</span> apt-get update &amp;&amp; <span class="built_in">sudo</span> apt-get install cloudflare-warp</span><br><span class="line">warp-cli registration new</span><br><span class="line">warp-cli mode proxy</span><br><span class="line">warp-cli connect</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装GOST</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -fsSL https://github.com/go-gost/gost/raw/master/install.sh) --install</span><br></pre></td></tr></table></figure>
+<ul>
+<li>迁移GOST文件以后，转发端口到Cloudflare WARP</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> --now gost.service</span><br></pre></td></tr></table></figure>
+
+<p>最后验证结果：开一个VPS，安装nginx，在新实例搜索框输入http:&#x2F;&#x2F;&lt;你的VPS IP地址&gt;。查阅VPS的nginx日志<code>/var/log/nginx/access.log</code>，是否是cloudflare的IP。如果是即成功。</p>
+<h1 id="部署全文搜索"><a href="#部署全文搜索" class="headerlink" title="部署全文搜索"></a>部署全文搜索</h1><p>新服务器，代码魔改部分省略，因为都是从我GitHub仓库下载的代码。</p>
+<h2 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install openjdk-17-jre-headless</span><br></pre></td></tr></table></figure>
+<h2 id="添加软件源"><a href="#添加软件源" class="headerlink" title="添加软件源"></a>添加软件源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O /usr/share/keyrings/elasticsearch.asc https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/usr/share/keyrings/elasticsearch.asc] https://artifacts.elastic.co/packages/8.x/apt stable main&quot;</span> &gt; /etc/apt/sources.list.d/elastic-8.x.list</span><br></pre></td></tr></table></figure>
+<h2 id="安装ES"><a href="#安装ES" class="headerlink" title="安装ES"></a>安装ES</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install elasticsearch=8.4.1</span><br></pre></td></tr></table></figure>
+<h2 id="启动ES"><a href="#启动ES" class="headerlink" title="启动ES"></a>启动ES</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> --now elasticsearch</span><br></pre></td></tr></table></figure>
+<h2 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h2><p>添加配置文件<code>/etc/elasticsearch/jvm.options.d/ram.options</code><br>内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Xms represents the initial size of total heap space</span></span><br><span class="line"><span class="comment"># Xmx represents the maximum size of total heap space</span></span><br><span class="line"><span class="comment"># Both values should be the same</span></span><br><span class="line">-Xms2048m</span><br><span class="line">-Xmx2048m</span><br></pre></td></tr></table></figure>
+<p>重启elasticsearch</p>
+<h2 id="添加mastodon专用账号"><a href="#添加mastodon专用账号" class="headerlink" title="添加mastodon专用账号"></a>添加mastodon专用账号</h2><p>迁移前我一直使用<code>elastic</code>管理员账号来使用搜索功能，其实这是不安全的。首先要修改配置文件<code>/etc/elasticsearch/elasticsearch.yml</code>。<br>文件中，<code>xpack.security.enabled</code>值必须保持为<code>true</code>，否则无法使用密码。<code>xpack.security.http.ssl</code>的<code>enabled</code>改为<code>false</code>，否则无法用curl访问，长毛象可能也无法访问ES。</p>
+<ul>
+<li>首先重置elastic密码</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic -i</span><br></pre></td></tr></table></figure>
+<p>这条命令可以让你手动输入密码。<br>重置密码后，可以用如下命令验证密码是否正确：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u elastic 127.0.0.1:9200</span><br></pre></td></tr></table></figure>
+<p>输入密码，如果返回如下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;vmi2519229&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;iVja5rGkS-KYku7YBsqnlg&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;8.4.1&quot;,</span><br><span class="line">    &quot;build_flavor&quot; : &quot;default&quot;,</span><br><span class="line">    &quot;build_type&quot; : &quot;deb&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;2bd229c8e56650b42e40992322a76e7914258f0c&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2022-08-26T12:11:43.232597118Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;9.3.0&quot;,</span><br><span class="line">    &quot;minimum_wire_compatibility_version&quot; : &quot;7.17.0&quot;,</span><br><span class="line">    &quot;minimum_index_compatibility_version&quot; : &quot;7.0.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>则密码正确<br>若密码错误，则会显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;error&quot;:&#123;&quot;root_cause&quot;:[&#123;&quot;type&quot;:&quot;security_exception&quot;,&quot;reason&quot;:&quot;unable to authenticate user [elastic] for REST request [/]&quot;,&quot;header&quot;:&#123;&quot;WWW-Authenticate&quot;:[&quot;Basic realm=\&quot;security\&quot; charset=\&quot;UTF-8\&quot;&quot;,&quot;ApiKey&quot;]&#125;&#125;],&quot;type&quot;:&quot;security_exception&quot;,&quot;reason&quot;:&quot;unable to authenticate user [elastic] for REST request [/]&quot;,&quot;header&quot;:&#123;&quot;WWW-Authenticate&quot;:[&quot;Basic realm=\&quot;security\&quot; charset=\&quot;UTF-8\&quot;&quot;,&quot;ApiKey&quot;]&#125;&#125;,&quot;status&quot;:401&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建角色<code>mastodon_full_access</code><br>执行如下命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -u elastic <span class="string">&quot;localhost:9200/_security/role/mastodon_full_access?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;cluster&quot;: [&quot;monitor&quot;],</span></span><br><span class="line"><span class="string">  &quot;indices&quot;: [&#123;</span></span><br><span class="line"><span class="string">    &quot;names&quot;: [&quot;*&quot;],</span></span><br><span class="line"><span class="string">    &quot;privileges&quot;: [&quot;read&quot;, &quot;monitor&quot;, &quot;write&quot;, &quot;manage&quot;]</span></span><br><span class="line"><span class="string">  &#125;]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>返回true则成功</p>
+<ul>
+<li>创建用户<code>mastodon</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -u elastic <span class="string">&quot;localhost:9200/_security/user/mastodon?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;password&quot; : &quot;l0ng-r4nd0m-p@ssw0rd&quot;,</span></span><br><span class="line"><span class="string">  &quot;roles&quot; : [&quot;mastodon_full_access&quot;]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>l0ng-r4nd0m-p@ssw0rd</code>替换为配置文件内的密码，如果首次创建，则可以使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/elasticsearch/bin/elasticsearch-reset-password -u mastodon</span><br></pre></td></tr></table></figure>
+<p>生成一个随机密码。<br>配置完成后，重启<code>mastodon-sidekiq</code>和<code>mastodon-web</code>进程。</p>
+<ul>
+<li>登录网页端检查ES状态。</li>
+</ul>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><ul>
+<li>进入elasticsearch目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/share/elasticsearch</span><br></pre></td></tr></table></figure>
+<ul>
+<li>逐行运行如下命令，安装插件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/elasticsearch-plugin install https://get.infini.cloud/elasticsearch/analysis-stconvert/8.4.1</span><br><span class="line">bin/elasticsearch-plugin install https://get.infini.cloud/elasticsearch/analysis-ik/8.4.1</span><br></pre></td></tr></table></figure>
+<h2 id="禁止ES自动更新"><a href="#禁止ES自动更新" class="headerlink" title="禁止ES自动更新"></a>禁止ES自动更新</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-mark hold elasticsearch</span><br></pre></td></tr></table></figure>
+<h2 id="部署索引"><a href="#部署索引" class="headerlink" title="部署索引"></a>部署索引</h2><p>安装完成后，就应该部署索引</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - mastodon</span><br><span class="line"><span class="built_in">cd</span> live</span><br><span class="line">RAILS_ENV=production bin/tootctl search deploy</span><br></pre></td></tr></table></figure>
+
+<h1 id="迁移以后的工作"><a href="#迁移以后的工作" class="headerlink" title="迁移以后的工作"></a>迁移以后的工作</h1><p>DNS解析到新服务器以后，新址就已经算是正式开始工作了。旧服务器在剩下的时日，可以作为备份。每次迁移，我还要再花一点时间验证新实例是否正常。<br>旧服务器的长毛象sidekiq服务和证书自动更新计划，必须全部关掉，因为这会导致冲突。<br>之后我就把媒体文件和数据库备份给打包备份下来，下载回家（用于应对VPS捐款跑路的情况）。数据无价，且行且珍惜。</p>
+<p>最后，我退订了旧VPS，最多一个月后下线。</p>
+</div><div class="post-copyright valine" id="comments-container"><script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script><script>let arr = location.href.split('/#more')[0].split('/');
+let title = arr[arr.length - 1];
+if (title === '') {
+    title = arr[arr.length - 2];
+}
+var flag = false;
+var gitFun = function () {
+    try {
+        var valineObj = window.GLOBAL_CONFIG.valine;
+        new Valine({
+            el: "#comments-container",
+            ...valineObj
+        });
+        flag = true;
+    } catch (e) {
+        flag = false;
+    }
+}
+var setIn = setInterval(() => {
+    if (!flag) {
+        gitFun();
+    } else {
+        clearInterval(setIn);
+    }
+}, 200);</script></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="../../../05/02/mastodon-scheduled-statuses/"><i class="fas fa-angle-left">&nbsp;</i><span>长毛象定时发文</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="../Warp%E4%BB%A3%E7%90%86%EF%BC%88%E9%9D%9EDocker%E7%89%88%EF%BC%89/"><span>长毛象实例使用Cloudflare Warp代理（非Docker版）</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2025 By 妙瓦草</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="../../../../js/search/algolia.js"></script></body></html>

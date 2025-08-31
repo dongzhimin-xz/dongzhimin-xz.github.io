@@ -6,7 +6,7 @@
   <link href="https://blog.xuzhou-jiang.su/atom.xml" rel="self"/>
   
   <link href="https://blog.xuzhou-jiang.su/"/>
-  <updated>2025-08-31T14:46:36.000Z</updated>
+  <updated>2025-08-31T16:08:08.000Z</updated>
   <id>https://blog.xuzhou-jiang.su/</id>
   
   <author>
@@ -17,11 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>mCustomScrollbar调整鼠标滚轮灵敏度</title>
+    <link href="https://blog.xuzhou-jiang.su/2025/08/31/mCustomScrollbar%E8%B0%83%E6%95%B4%E9%BC%A0%E6%A0%87%E6%BB%9A%E8%BD%AE%E7%81%B5%E6%95%8F%E5%BA%A6/"/>
+    <id>https://blog.xuzhou-jiang.su/2025/08/31/mCustomScrollbar%E8%B0%83%E6%95%B4%E9%BC%A0%E6%A0%87%E6%BB%9A%E8%BD%AE%E7%81%B5%E6%95%8F%E5%BA%A6/</id>
+    <published>2025-08-31T14:53:44.000Z</published>
+    <updated>2025-08-31T16:08:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>我开写的时候就预感到，本篇应该不长，但我觉得内容很重要。<br>上次<del>几个月前</del><a href="https://social.baka.pub/@bingxin">笨蛋冰</a>看了我的博客以后，在群里说，我的博客有个bug，就是鼠标滚轮一滚，这个代码就从最底下，往上溜到页面外去了。<br>这个问题很小，但修起来，我觉得太底层了，不适合我这个外行人。</p><span id="more"></span><p>这个8月，我折腾了一下实例。折腾的东西太多了。最开始我为了<a href="/tags/%E5%93%AA%E5%90%922/">压片战争</a>而重拾魔改，同时又发现了一些存储桶的安全问题。从而进行了<a href="/2025/08/17/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%A4%A7%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/">大版本更新</a>（估计以后还得折腾，到时候是不是应该直接去<code>main</code>分支？还真不好说）。<br>之后我又开始着手魔改Markdown的Codeblock的样式，向小森林看齐 <em>（这方面的踩坑博客还没开始写）</em>。<br>改到一半，我就想着把博客的小BUG也给修一修了。</p><h1 id="踩坑历程"><a href="#踩坑历程" class="headerlink" title="踩坑历程"></a>踩坑历程</h1><p>前提：我是完全不懂啥叫<code>mCustomScrollbar</code>，也只对<code>jQuery</code>略有耳闻。<br>首先，按F12开始调试。<br>对比<a href="https://blog.byteloid.one/">笨蛋冰的博客</a>，发现我跟他的主题架构没有可比性。<br>经过鼠标滚动，发现它样式的属性会发生变化，于是定位到了.js。<br>我使用的是Firefox浏览器，浏览了<a href="https://fan-lv.github.io/">Fan-lv的博客</a>和<a href="https://dongzhimin-xz.github.io/">我的博客</a>，发现都有这个通病。<br>通过F12界面，我发现了影响这个样式的<code>.js</code>文件<br><img src="wheel-debug.png"><br>只要把图中所圈<code>wheel</code>项的勾取消掉，鼠标滚轮就无法翻页。这样就跟修轮胎一样，找到了这是什么控件在起作用。<br>然后我就发现这个文件太复杂了😭<br>一度想放弃。</p><p>然后我最后再上网搜一下怎么调整鼠标滚轮的敏感度。<br>直接搜索怎么调鼠标滚轮敏感度，那出来的都是改Windows设置。直接转到“调试器”，发现了这个文件名叫<code>mCustomScrollbar</code>什么的，上网搜这个看看有没有文档。<br>就搜出来很多类似这样的文章 <a href="https://www.cnblogs.com/ping228/p/scroll-plug.html">https://www.cnblogs.com/ping228/p/scroll-plug.html</a><br>它们说这个控件有4个文件，名字类似的，我就找到俩。<br>文章中指出了一段代码</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;<span class="selector-id">#main</span>&quot;)<span class="selector-class">.mCustomScrollbar</span>(&#123;</span><br><span class="line">    scrollButtons:&#123;</span><br><span class="line">        enable:false,</span><br><span class="line">        scrollType:<span class="string">&quot;continuous&quot;</span>,</span><br><span class="line">        scrollSpeed:<span class="number">20</span>,</span><br><span class="line">        scrollAmount:<span class="number">40</span></span><br><span class="line">    &#125;,</span><br><span class="line">     horizontalScroll:false,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>还列出了详细的参数</p><blockquote><p>set_width:false：设置你内容的宽度 值可以是像素或者百分比<br>set_height:false：设置你内容的高度 值可以是像素或者百分比<br>horizontalScroll:Boolean：是否创建一个水平滚动条 默认是垂直滚动条 值可为:true(创建水平滚动条) 或 false<br>scrollInertia:Integer：滚动的惯性值 在毫秒中 使用0可以无滚动惯性 (滚动惯性可以使区块滚动更加平滑)<br>scrollEasing:String：滚动动作类型 查看 jquery UI easing 可以看到所有的类型<br>mouseWheel:String&#x2F;Boolean：鼠标滚动的支持 值为:true.false,像素 默认的情况下 鼠标滚动设置成像素值 填写false取消鼠标滚动功能<br>mouseWheelPixels:Integer：鼠标滚动中滚动的像素数目 值为以像素为单位的数值<br>autoDraggerLength:Boolean：根据内容区域自动调整滚动条拖块的长度 值:true,false<br>scrollButtons:{ enable:Boolean }：是否添加 滚动条两端按钮支持 值:true,false<br>scrollButtons:{ scrollType:String }：滚动按钮滚动类型 值:”continuous”(当你点击滚动控制按钮时断断续续滚动) “pixels”(根据每次点击的像素数来滚动) 点击这里可以看到形象的例子<br>scrollButtons:{ scrollSpeed:Integer }：设置点击滚动按钮时候的滚动速度(默认 20) 设置一个更高的数值可以更快的滚动<br>scrollButtons:{ scrollAmount:Integer }：设置点击滚动按钮时候每次滚动的数值 像素单位 默认 40像素<br>advanced:{ updateOnBrowserResize:Boolean }：根据百分比为自适应布局 调整浏览器上滚动条的大小 值:true,false 设置 false 如果你的内容块已经被固定大小<br>advanced:{ updateOnContentResize:Boolean }：自动根据动态变换的内容调整滚动条的大小 值:true,false 设置成 true 将会不断的检查内容的长度并且据此改变滚动条大小 建议除非必要不要设置成 true 如果页面中有很多滚动条的时候 它有可能会产生额外的移出 你可以使用 update 方法来替代这个功能<br>advanced:{ autoExpandHorizontalScroll:Boolean }：自动扩大水平滚动条的长度 值:true,false 设置 true 你可以根据内容的动态变化自动调整大小 可以看Demo<br>advanced:{ autoScrollOnFocus:Boolean }：是否自动滚动到聚焦中的对象 例如表单使用类似TAB键那样跳转焦点 值:true false<br>callbacks:{ onScrollStart:function(){} }：使用自定义的回调函数在滚动时间开始的时候执行 具体请看Demo<br>callbacks:{ onScroll:function(){} }：自定义回调函数在滚动中执行 Demo 同上<br>callbacks:{ onTotalScroll:function(){} }：当滚动到底部的时候调用这个自定义回调函数 Demo 同上<br>callbacks:{ onTotalScrollBack:function(){} }：当滚动到顶部的时候调用这个自定义回调函数 Demo 同上<br>callbacks:{ onTotalScrollOffset:Integer }：设置到达顶部或者底部的偏移量 像素单位<br>callbacks:{ whileScrolling:function(){} }：当用户正在滚动的时候执行这个自定义回调函数<br>callbacks:{ whileScrollingInterval:Integer }：设置调用 whileScrolling 回调函数的时间间隔 毫秒单位</p></blockquote><p>于是发现这两条很有意思</p><blockquote><p>mouseWheelPixels:Integer：鼠标滚动中滚动的像素数目 值为以像素为单位的数值<br>scrollInertia:Integer：滚动的惯性值 在毫秒中 使用0可以无滚动惯性 (滚动惯性可以使区块滚动更加平滑)</p></blockquote><p>经过检查主题的<code>_config.yml</code>文件，发现<code>scroll.js</code>似乎就是控制滚轮敏感度的文件。<br>找到相关的</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$(&#x27;<span class="selector-id">#content-outer</span>&#x27;)<span class="selector-class">.mCustomScrollbar</span>(&#123;</span><br><span class="line">    theme: <span class="string">&#x27;minimal&#x27;</span>,</span><br><span class="line">    axis: <span class="string">&#x27;y&#x27;</span>, // horizontal scrollbar</span><br><span class="line">    callbacks: &#123;</span><br><span class="line">        whileScrolling: function () &#123;</span><br><span class="line">            myCustomFn(this);</span><br><span class="line">            readPercent(this);</span><br><span class="line">            findHeadPosition(this);</span><br><span class="line">        &#125;,</span><br><span class="line">        onScroll: function () &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>这说明鼠标滚轮像素和滚动惯性，都是默认值，把键和值加上</p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">diff --git a/source/js/scroll.js b/source/js/scroll.js</span></span><br><span class="line"><span class="comment">index f5193ca..7c7eba5 100644</span></span><br><span class="line"><span class="comment">--- a/source/js/scroll.js</span></span><br><span class="line"><span class="comment">+++ b/source/js/scroll.js</span></span><br><span class="line"><span class="meta">@@ -49,6 +49,8 @@</span></span><br><span class="line">     $(&#x27;#content-outer&#x27;).mCustomScrollbar(&#123;</span><br><span class="line">         theme: &#x27;minimal&#x27;,</span><br><span class="line">         axis: &#x27;y&#x27;, // horizontal scrollbar</span><br><span class="line"><span class="addition">+        mouseWheelPixels: 300,</span></span><br><span class="line"><span class="addition">+        scrollInertia: 500,</span></span><br><span class="line">         callbacks: &#123;</span><br><span class="line">             whileScrolling: function () &#123;</span><br><span class="line">                 myCustomFn(this);</span><br></pre></td></tr></table></figure><p><code>hexo s</code>的测试环境中，滚轮速度问题，马上就好了</p><h1 id="部署踩坑"><a href="#部署踩坑" class="headerlink" title="部署踩坑"></a>部署踩坑</h1><p>我用<code>hexo d</code>部署到GitHub上去以后，发现我写的文章已经同步了，但是鼠标滚轮问题仍未修复。<br>我检查了<code>public/</code>目录和<code>.deploy_git/</code>目录下的js文件，发现都有。于是检查GitHub仓库，发现也有我改动内容。<br>再检查浏览器的开发者模式，js代码竟然没到！<br>我把CloudFlare缓存的开发者模式打开，再按Ctrl+F5清除缓存刷新，发现还是没到。那基本可以肯定是GitHub同步javascript比正文更慢，再等了一会儿，BUG修复。</p><p>修这个BUG不是多重要的事情，也不是为了锻炼“永不言弃”（钻牛角尖）的精神。主要是学习排查问题的一种思路。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;我开写的时候就预感到，本篇应该不长，但我觉得内容很重要。&lt;br&gt;上次&lt;del&gt;几个月前&lt;/del&gt;&lt;a href=&quot;https://social.baka.pub/@bingxin&quot;&gt;笨蛋冰&lt;/a&gt;看了我的博客以后，在群里说，我的博客有个bug，就是鼠标滚轮一滚，这个代码就从最底下，往上溜到页面外去了。&lt;br&gt;这个问题很小，但修起来，我觉得太底层了，不适合我这个外行人。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="建站技术" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="博客搭建" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
+    
+    
+    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
+    
+    <category term="jQuery" scheme="https://blog.xuzhou-jiang.su/tags/jQuery/"/>
+    
+    <category term="mCustomScrollbar" scheme="https://blog.xuzhou-jiang.su/tags/mCustomScrollbar/"/>
+    
+    <category term="博客主题维护" scheme="https://blog.xuzhou-jiang.su/tags/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%BB%B4%E6%8A%A4/"/>
+    
+  </entry>
+  
+  <entry>
     <title>填坑：个人主页的配置</title>
     <link href="https://blog.xuzhou-jiang.su/2025/08/31/imsyy-home/"/>
     <id>https://blog.xuzhou-jiang.su/2025/08/31/imsyy-home/</id>
     <published>2025-08-31T13:11:30.000Z</published>
-    <updated>2025-08-31T14:46:36.000Z</updated>
+    <updated>2025-08-31T14:55:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近发现，本博客的文章，绝大多数都是跟长毛象有关的。本来以为写过我的<a href="https://xuzhou-jiang.su/">个人主页</a>是怎么配置的，后来发现原来当初是嫌太简单，没写（？）<br>也好办，读了本文以后，你也能像我一样，做出如此酷炫的个人主页。</p><span id="more"></span><p>今天看见这个主页作者的仓库已经封存3个月了，还写了如下留言，甚是感慨。</p><blockquote><p><strong>致大家</strong><br>此项目最初只是一个简单的主页。然而，随着越来越多的小伙伴发现了这个项目，它受到了大量本不应有的关注。而且，此项目作为初学前端的作品，其代码相当杂乱且质量低下。此外，该项目还遭到众多不明资源站或下载站的倒卖，致使许多不明真相的购买者从源代码中找到本人的联系方式进行问题咨询或提出功能需求。由于目前个人原因，该仓库进行存档，敬请谅解！</p></blockquote><p>就你国这风气，闭关锁国的，还把抄袭当成先知，呵呵。<br>我想起来小学里，有同学把我100分的卷子偷去，把名字改成自己的，获得老师表扬，还当上了班干部。我国的<strong>人民企业家</strong>大概也不过如此吧。马化腾的行径确实是这样，把汉化组给弄进去了。老马下手可比徐逸狠多了。</p><h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>我看<a href="https://byteloid.one/">笨蛋冰的主页</a>非常炫酷，就向他求教怎么弄的，他就指路了<a href="https://github.com/imsyy/home">这个GitHub项目</a>。看语言，应该是Vue框架，又是一个我不懂的领域。<br>好在他的文档写得还不错，东西远比我的博客和在GitHub写的README要多。</p><h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>还是很简单</p><h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>解释器方面仅需要安装<a href="https://nodejs.org/">node.js</a><br>装完node.js以后，安装pnpm包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pnpm</span><br></pre></td></tr></table></figure><p>它需要的包都在<code>package.json</code>里，在该项目的目录打开命令行，直接使用<code>pnpm install</code>统一安装</p><blockquote><p>如果你跟赛博丁真何同学一样不会克隆代码，或者不会在当前目录打开命令行，请立即关闭网页</p></blockquote><h2 id="调试网页"><a href="#调试网页" class="headerlink" title="调试网页"></a>调试网页</h2><p>开发过程肯定不能像某些学霸那样人脑跑代码，必定需要看看效果。在目录运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm dev</span><br></pre></td></tr></table></figure><p>这个环境非常智能，运行无误会全自动打开端口，并当场打开浏览器。如果你没改过代码，那它就会显示作者的个人主页（当然，项目旧了，不保证每个链接都有效）。你更改代码后，每当你按下保存键，浏览器就会自动刷新网页，即时显示你的修改效果。不需要你手动重新编译、重启进程、刷新网页了。</p><p>代码写完后，你要发表。笔者是发布在Cloudflare Pages上的，所以GitHub上找不到我个人主页的开源代码。运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm build</span><br></pre></td></tr></table></figure><p>它就会把你的网站编译成一套完整的静态网页，存储在代码目录下的<code>dist</code>目录中。只要把这个目录（拷贝、上传）设为网页服务器的网站根目录，即可在网络上浏览。</p><h1 id="建站过程"><a href="#建站过程" class="headerlink" title="建站过程"></a>建站过程</h1><p>很多内容都在作者文档里有提过，我不愿赘述，以防读者错过真正有用的部分。<br>第一步无非是把<code>.env</code>里的环境变量都改成自己的，<code>src/assets</code>目录里的东西也改成自己的。<br>既然把网址改成了自己的，它只支持作者网站的字体，目录<code>public/font</code>里面，作者也很贴心地留有文档。</p><h2 id="坑1：我的三段域名和现在的超长域名"><a href="#坑1：我的三段域名和现在的超长域名" class="headerlink" title="坑1：我的三段域名和现在的超长域名"></a>坑1：我的三段域名和现在的超长域名</h2><p>不是每个人的域名都这么简洁，这么靓的。而<a href="https://byteloid.one/">笨蛋冰</a>的Bingxin后面有个多余的<code>.</code><br>而我的三段域名却只能显示2段。现在我的超长域名xuzhou-jiang.su却只能显示省略号。<br>这个坑，作者的文档里面没有。经过我用F12查看网页源代码，发现在<code>src/components/Message.vue</code>可以改变文字样式和元素多少。<br>多一个<code>&lt;/span&gt;</code>就多一个点</p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">diff --git a/src/components/Message.vue b/src/components/Message.vue</span></span><br><span class="line"><span class="comment">index b130630..53c45da 100644</span></span><br><span class="line"><span class="comment">--- a/src/components/Message.vue</span></span><br><span class="line"><span class="comment">+++ b/src/components/Message.vue</span></span><br><span class="line"><span class="meta">@@ -7,6 +7,7 @@</span></span><br><span class="line">       &lt;div :class=&quot;&#123; name: true, &#x27;text-hidden&#x27;: true, long: siteUrl[0].length &gt;= 6 &#125;&quot;&gt;</span><br><span class="line">         &lt;span class=&quot;bg&quot;&gt;&#123;&#123; siteUrl[0] &#125;&#125;&lt;/span&gt;</span><br><span class="line">         &lt;span class=&quot;sm&quot;&gt;.&#123;&#123; siteUrl[1] &#125;&#125;&lt;/span&gt;</span><br><span class="line"><span class="addition">+        &lt;span class=&quot;sm&quot;&gt;.&#123;&#123; siteUrl[2] &#125;&#125;&lt;/span&gt;</span></span><br><span class="line">       &lt;/div&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">     &lt;!-- 简介 --&gt;</span><br></pre></td></tr></table></figure><p>现在我只有两段域名了，把<code>&lt;/span&gt;</code>给删掉，再把<code>bg</code>这个类改成<code>sm</code>就行了。</p><h2 id="坑2：高德地图api"><a href="#坑2：高德地图api" class="headerlink" title="坑2：高德地图api"></a>坑2：高德地图api</h2><p>查看<a href="https://byteloid.one/">Bingxinの主页</a>，你会发现很多人的天气都是一样问题，都显示“天气数据获取失败”。而我却可以显示用户当地天气。<br>这是因为我配置了高德api。没错，我申请了api。但这api是实名的，我认为非常不安全。<br>我按F12发现，这个api就是在前端运行的。那就很好办了。我只要用搜索引擎，把所有用本框架的主页都搜出来，找到能正确显示天气的，把那位老哥的高德api给复制过来。<em>我也不知道他的是不是偷的，反正只要我不被盒了就行</em></p><h2 id="坑3：长毛象署名"><a href="#坑3：长毛象署名" class="headerlink" title="坑3：长毛象署名"></a>坑3：长毛象署名</h2><p>这也不算坑，纯粹为了凑个规整。<br>之前我也在<a href="/2025/01/19/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/#%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%BD%9C%E8%80%85%E7%BD%B2%E5%90%8D">本博客的搭建教程</a>里面提过。这个比较简单，只要在项目根目录的<code>index.html</code>里面添加就行</p><h2 id="坑4：添加BlueSky和开往图标"><a href="#坑4：添加BlueSky和开往图标" class="headerlink" title="坑4：添加BlueSky和开往图标"></a>坑4：添加BlueSky和开往图标</h2><p>这也不用我废话，直接上网找图标，放进文件夹，在<code>src/assets/socialLinks.json</code>里面引用就行。什么？你说如何找到大小合适的图片？我都自己亲手缩放裁剪的。如果你等学校（或作者）给你发手工课材料或者文具（电脑）以后才肯动手的话，请立即关闭本页面，谢谢！<del>如果你遇上了“我给你发素材&#x2F;文具&#x2F;电脑了吗？你就做了”的老板、老师、同学，请帮我揍她qqqxx</del></p><h2 id="坑5：vite编译失败"><a href="#坑5：vite编译失败" class="headerlink" title="坑5：vite编译失败"></a>坑5：vite编译失败</h2><p>这个<code>vite</code>的依赖包，编译需要建立软链接，编译很容易报错。错误的发生原因，就是你在NTFS格式的分区编译此项目，从而无法建立软链接。解决办法：在项目的根目录下，添加文件<code>.npmrc</code>，内容添加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node-linker=hoisted</span><br></pre></td></tr></table></figure><p>以上就是imsyy的个人主页的踩坑心得。写给自己看，也希望读者也能拥有属于自己的酷主页。</p>]]></content>
     
@@ -35,15 +66,15 @@
     <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
     
     
-    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    <category term="免费的技术支持就在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E5%85%8D%E8%B4%B9%E7%9A%84%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E5%B0%B1%E5%9C%A8%E8%BF%99%E9%87%8C/"/>
     
     <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
     
     <category term="Vue" scheme="https://blog.xuzhou-jiang.su/tags/Vue/"/>
     
-    <category term="免费的技术支持就在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E5%85%8D%E8%B4%B9%E7%9A%84%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E5%B0%B1%E5%9C%A8%E8%BF%99%E9%87%8C/"/>
+    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
-    <category term="互联网非物质文化手艺大赛" scheme="https://blog.xuzhou-jiang.su/tags/%E4%BA%92%E8%81%94%E7%BD%91%E9%9D%9E%E7%89%A9%E8%B4%A8%E6%96%87%E5%8C%96%E6%89%8B%E8%89%BA%E5%A4%A7%E8%B5%9B/"/>
+    <category term="互联网非物质文化手艺传承" scheme="https://blog.xuzhou-jiang.su/tags/%E4%BA%92%E8%81%94%E7%BD%91%E9%9D%9E%E7%89%A9%E8%B4%A8%E6%96%87%E5%8C%96%E6%89%8B%E8%89%BA%E4%BC%A0%E6%89%BF/"/>
     
   </entry>
   
@@ -120,11 +151,11 @@
     
     <category term="爱🐘TV" scheme="https://blog.xuzhou-jiang.su/tags/%E7%88%B1%F0%9F%90%98TV/"/>
     
+    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
+    
     <category term="长毛象运维" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/"/>
     
     <category term="哪吒2" scheme="https://blog.xuzhou-jiang.su/tags/%E5%93%AA%E5%90%922/"/>
-    
-    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
     
   </entry>
   
@@ -149,11 +180,11 @@
     
     <category term="言论自由只在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/"/>
     
+    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
     <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
     
     <category term="长毛象运维" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/"/>
-    
-    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   
@@ -186,13 +217,13 @@
     
     <category term="超长代码预警" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B6%85%E9%95%BF%E4%BB%A3%E7%A0%81%E9%A2%84%E8%AD%A6/"/>
     
-    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
-    
     <category term="哈基象欠爱了" scheme="https://blog.xuzhou-jiang.su/tags/%E5%93%88%E5%9F%BA%E8%B1%A1%E6%AC%A0%E7%88%B1%E4%BA%86/"/>
     
     <category term="长毛象前端" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%89%8D%E7%AB%AF/"/>
     
     <category term="非基础" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
     
     <category term="长毛象计划发嘟" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%AE%A1%E5%88%92%E5%8F%91%E5%98%9F/"/>
     
@@ -400,9 +431,9 @@
     
     <category term="长毛象开发环境的搭建" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/"/>
     
-    <category term="vagrant的使用" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/vagrant%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    
     <category term="长毛象轻度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
+    
+    <category term="vagrant的使用" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/vagrant%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     
     
     <category term="言论自由只在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/"/>

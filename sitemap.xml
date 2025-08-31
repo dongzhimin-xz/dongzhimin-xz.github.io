@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.xuzhou-jiang.su/2025/09/01/cmx-emergency/</loc>
+    
+    <lastmod>2025-08-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.xuzhou-jiang.su/2025/08/31/mCustomScrollbar%E8%B0%83%E6%95%B4%E9%BC%A0%E6%A0%87%E6%BB%9A%E8%BD%AE%E7%81%B5%E6%95%8F%E5%BA%A6/</loc>
     
     <lastmod>2025-08-31</lastmod>
@@ -259,6 +268,20 @@
   </url>
   
   <url>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E5%9D%9A%E5%86%B3%E6%8D%8D%E5%8D%AB%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%EF%BC%81/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.xuzhou-jiang.su/tags/jQuery/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -274,6 +297,13 @@
   
   <url>
     <loc>https://blog.xuzhou-jiang.su/tags/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%BB%B4%E6%8A%A4/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -301,13 +331,6 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%AE%A1%E5%88%92%E5%8F%91%E5%98%9F/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -315,7 +338,7 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/</loc>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E6%8C%82%E4%BA%BA/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -323,20 +346,6 @@
   
   <url>
     <loc>https://blog.xuzhou-jiang.su/tags/Postfix%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E5%9D%9A%E5%86%B3%E6%8D%8D%E5%8D%AB%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%EF%BC%81/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E6%8C%82%E4%BA%BA/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -371,14 +380,14 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E8%B6%85%E9%95%BF%E4%BB%A3%E7%A0%81%E9%A2%84%E8%AD%A6%EF%BC%81%EF%BC%81%EF%BC%81/</loc>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E5%93%AA%E5%90%922/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/tags/%E5%93%AA%E5%90%922/</loc>
+    <loc>https://blog.xuzhou-jiang.su/tags/%E8%B6%85%E9%95%BF%E4%BB%A3%E7%A0%81%E9%A2%84%E8%AD%A6%EF%BC%81%EF%BC%81%EF%BC%81/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -415,7 +424,7 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/</loc>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -429,7 +438,7 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B%E8%BF%90%E7%BB%B4/</loc>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -457,7 +466,7 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/</loc>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B%E8%BF%90%E7%BB%B4/%E9%95%BF%E6%AF%9B%E8%B1%A1%E6%80%A5%E6%95%91%E5%A4%84%E7%90%86/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -471,14 +480,14 @@
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%B8%AD%E5%BA%A6%E9%AD%94%E6%94%B9/%E5%9B%BE%E7%89%87%E6%95%B0%E9%87%8F%E5%A2%9E%E5%8A%A0-%E7%BD%91%E9%A1%B5%E7%AB%AF%E5%9B%BE%E7%89%87%E5%B8%83%E5%B1%80%E4%BF%AE%E6%AD%A3/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%B8%AD%E5%BA%A6%E9%AD%94%E6%94%B9/%E5%9B%BE%E7%89%87%E6%95%B0%E9%87%8F%E5%A2%9E%E5%8A%A0-%E7%BD%91%E9%A1%B5%E7%AB%AF%E5%9B%BE%E7%89%87%E5%B8%83%E5%B1%80%E4%BF%AE%E6%AD%A3/</loc>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -514,6 +523,13 @@
   
   <url>
     <loc>https://blog.xuzhou-jiang.su/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

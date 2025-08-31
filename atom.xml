@@ -6,7 +6,7 @@
   <link href="https://blog.xuzhou-jiang.su/atom.xml" rel="self"/>
   
   <link href="https://blog.xuzhou-jiang.su/"/>
-  <updated>2025-08-31T16:08:08.000Z</updated>
+  <updated>2025-08-31T17:48:06.000Z</updated>
   <id>https://blog.xuzhou-jiang.su/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>长毛象域名失效急救处理</title>
+    <link href="https://blog.xuzhou-jiang.su/2025/09/01/cmx-emergency/"/>
+    <id>https://blog.xuzhou-jiang.su/2025/09/01/cmx-emergency/</id>
+    <published>2025-08-31T16:12:59.000Z</published>
+    <updated>2025-08-31T17:48:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>刚才我写过一篇文章，<a href="/2025/08/31/%E5%85%B3%E4%BA%8E%E6%9C%80%E8%BF%91%E5%81%9C%E6%9B%B4%E7%9A%84%E8%AF%B4%E6%98%8E/">关于站点的情况说明</a>，挂人并不是为了泄愤，也不是最终目的，而是本篇重要博客的基础，以及将来我写保姆级教程的典型案例。</p><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>天塌了！天塌了！就在刚才，我们的毛象圈子似乎又出事了。什么都别废话，看图</p><span id="more"></span><p><img src="domain-failed.png" alt="笨蛋冰的域名"><br><em>结合王畅睿天天不上学，开小号到处蹦跶的嚣张嘴脸，不得不追杀。（当然，这个图里的杰作，也不清楚是不是他干的，但他似乎已经认领了这起恐怖袭击）</em><br>之前收到乌克兰域名注册局的通知，我就知道要寄了。但我绝对不可能让王某称心如意，就此退网。我的路又两条，最亏的一条：买一个新的域名，抽空从头重新建个实例，我这好不容易攒的100多个粉丝全部放弃。更可恶的是，要把我这一年的上万条嘟文都给放弃，这些除了有让敌人害怕的内容，还要很多一旦失去就要找很久的，甚至绝版的技术踩坑指南！</p><blockquote><p><font color=yellow><strong>屈服于强权而放弃粉丝和自己的所有嘟文，这TM不就跟推特一样了吗！</strong> </font></p></blockquote><p>还有一条路，就是把粉丝迁移到其他站点，本站修改<code>LOCAL_DOMAIN</code>环境变量以后，再迁移回本站。这可以最大程度地挽回损失。</p><h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>迁移账号，必定会造成损失，一个是30天的冷却期，如果失败，将无法重试迁移；另一个是必定有部分粉丝带不走，ta们是bot，或者实例（暂时）跑路了。<br>我开启我的闲置VPS，之前也是运行长毛象实例的，让它重新运行了长毛象实例。<br>我在接到通知后，第一时间就买了几个域名。在群里找笨蛋冰咨询了哪里有防投诉域名和防投诉服务器卖。拿了一些看着不太宝贵的域名，完成解析，全新配置了实例。</p><h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><p>拿旧站当逃生舱，新站模拟域名停止解析状况。迁移的粉丝，就用我那几十个小号。</p><h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>可以迁移。首先，迁出时不能修改<code>LOCAL_DOMAIN</code>，但要添加<code>ALTERNATE_DOMAINS</code>，这样用户才能登录。然后新账号要把旧帐号设置为别名。更改<code>LOCAL_DOMAIN</code>后，实例将无法收到一切站外嘟文。除非，取关并重新关注，中继站也都禁用并重新启用。</p><h2 id="实验原理（推测）"><a href="#实验原理（推测）" class="headerlink" title="实验原理（推测）"></a>实验原理（推测）</h2><p>旧帐号所在实例，按照旧帐号的粉丝列表，给所有粉丝发送取关自己，关注新账号的请求。这其中，旧帐号用webfinger去点粉丝，而粉丝却不必用webfinger点旧帐号来验证（旧帐号由于失去旧域名的解析，无法被webfinger触及。而且这个bug肯定不可能修，不然我可以反过来强制禁止人家外站用户对我拉黑取关了）。<br>旧实例修改<code>LOCAL_DOMAIN</code>后，以前的关注和中继依旧是要照常给它发送消息，但是找不到主机。只有重新关注和重新加入中继后，旧实例把新的webfinger地址告诉联合内的其他实例，它们把旧实例当成了一个有25年工作经验的应届生罢了。这很正常，这BUG也不可能修掉，不然你说为什么长毛象没从第一版公测到v4.4，也没把域名写死到数据库里去？<br>新账号迁回改名后的旧实例也非常顺利。</p><h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><p>我备份服务器后，将主账号粉丝全部迁移，共迁移成功80多粉丝。1天后改名操作，重新加入中继，取关一切并重新导入。现在账号跟没事人一样。<br>但是，有些小问题，我的测试账号，无法将粉丝迁移到外站，主要卡在设置别名时，所有外站账号提示找不到此账号。这说明账号没有联合，基本上不必怀疑象友把我小号封了。</p><h1 id="对账号安全的反思和复盘"><a href="#对账号安全的反思和复盘" class="headerlink" title="对账号安全的反思和复盘"></a>对账号安全的反思和复盘</h1><p>平时要做好数据库和证书的备份。</p><h2 id="数据库的备份"><a href="#数据库的备份" class="headerlink" title="数据库的备份"></a>数据库的备份</h2><p>这次王畅睿也举报了我的VPS，侥幸没被删。失去了便宜的VPS事小，我账号上的数据事大。所以得参考这个教程 <a href="https://www.eallion.com/mastodon-backup/">https://www.eallion.com/mastodon-backup/</a> ，每天全自动把数据库备份到存储桶。详细操作，我是简化了很多倍的，用更笨的办法来备份。而且我也觉得这象友的脚本可以加些个<code>&amp;</code>和<code>wait;</code>，显得更优雅。</p><h2 id="证书的备份"><a href="#证书的备份" class="headerlink" title="证书的备份"></a>证书的备份</h2><p>每两个月，实例都必须刷新证书，因为3个月就过期了。每次执行刷新的<code>crontab</code>时，还应该顺带把证书备份到存储桶去。这是为了在备用实例无法添加别名时，可以拿还有余温的旧证书来联合旧实例。<br>就在刚才，我还发现了一招，还没试过的办法，利用<code>ALLOWED_PRIVATE_ADDRESSES</code>和<a href="https://github.com/mastodon/mastodon/blob/main/app/lib/private_address_check.rb#L6">这段代码</a>来进行http连接。把旧实例的IP地址加入到<a href="https://github.com/mastodon/mastodon/blob/main/app/lib/private_address_check.rb#L6">这段代码</a>里，或许能实现很多神奇的功能。</p><p>我觉得<code>rclone</code>比<code>aws-cli</code>更好用，因为b2存储桶用<code>aws-cli</code>得加额外配置，否则会报错。</p><h2 id="关于注册网站第三方服务用的邮箱"><a href="#关于注册网站第三方服务用的邮箱" class="headerlink" title="关于注册网站第三方服务用的邮箱"></a>关于注册网站第三方服务用的邮箱</h2><p>我发现还是需要用公共邮箱，就比如gmail.com和protonmail比较好，而不是用自己域名的邮箱。用自己域名的邮箱，虽然没人知道我身份，但很多服务改不了邮箱，甚至登录不进去。<br><img src="larksuite.png" alt="我飞书被封了😭"></p><p>用gmail这种公共邮箱，隐私性差了一点，还是可能会被俄苏狗开盒，如果你拿干这个用的邮箱，同时来注册腾讯相关账号和b站的话，都是实名的，还经常脱库。<br>我认为最好的办法，还是多注册几个域名，部分域名负责岁静，专门用来给自己转发密码管理器和注册服务用。</p><p>对于如何选购服务器，再搞个域名，我有空再写个保姆级教程。很快就来了</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;刚才我写过一篇文章，&lt;a href=&quot;/2025/08/31/%E5%85%B3%E4%BA%8E%E6%9C%80%E8%BF%91%E5%81%9C%E6%9B%B4%E7%9A%84%E8%AF%B4%E6%98%8E/&quot;&gt;关于站点的情况说明&lt;/a&gt;，挂人并不是为了泄愤，也不是最终目的，而是本篇重要博客的基础，以及将来我写保姆级教程的典型案例。&lt;/p&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;天塌了！天塌了！就在刚才，我们的毛象圈子似乎又出事了。什么都别废话，看图&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="建站技术" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="长毛象实例运维" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="长毛象急救处理" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%AE%9E%E4%BE%8B%E8%BF%90%E7%BB%B4/%E9%95%BF%E6%AF%9B%E8%B1%A1%E6%80%A5%E6%95%91%E5%A4%84%E7%90%86/"/>
+    
+    
+    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="坚决捍卫言论自由！" scheme="https://blog.xuzhou-jiang.su/tags/%E5%9D%9A%E5%86%B3%E6%8D%8D%E5%8D%AB%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%EF%BC%81/"/>
+    
+    <category term="长毛象运维" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
   
   <entry>
     <title>mCustomScrollbar调整鼠标滚轮灵敏度</title>
@@ -182,9 +212,9 @@
     
     <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
     
-    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
-    
     <category term="长毛象运维" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
@@ -217,13 +247,13 @@
     
     <category term="超长代码预警" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B6%85%E9%95%BF%E4%BB%A3%E7%A0%81%E9%A2%84%E8%AD%A6/"/>
     
+    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
+    
     <category term="哈基象欠爱了" scheme="https://blog.xuzhou-jiang.su/tags/%E5%93%88%E5%9F%BA%E8%B1%A1%E6%AC%A0%E7%88%B1%E4%BA%86/"/>
     
     <category term="长毛象前端" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%89%8D%E7%AB%AF/"/>
     
     <category term="非基础" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E5%9F%BA%E7%A1%80/"/>
-    
-    <category term="非保姆级教程" scheme="https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"/>
     
     <category term="长毛象计划发嘟" scheme="https://blog.xuzhou-jiang.su/tags/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%AE%A1%E5%88%92%E5%8F%91%E5%98%9F/"/>
     
@@ -330,9 +360,9 @@
     
     <category term="建站技术" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/"/>
     
-    <category term="长毛象重度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
-    
     <category term="长毛象中度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%B8%AD%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
+    
+    <category term="长毛象重度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%87%8D%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
     
     
     <category term="言论自由只在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/"/>
@@ -431,9 +461,9 @@
     
     <category term="长毛象开发环境的搭建" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/"/>
     
-    <category term="长毛象轻度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
-    
     <category term="vagrant的使用" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/vagrant%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    
+    <category term="长毛象轻度魔改" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/"/>
     
     
     <category term="言论自由只在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E8%A8%80%E8%AE%BA%E8%87%AA%E7%94%B1%E5%8F%AA%E5%9C%A8%E8%BF%99%E9%87%8C/"/>

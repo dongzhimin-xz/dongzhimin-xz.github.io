@@ -6,7 +6,7 @@
   <link href="https://blog.xuzhou-jiang.su/atom.xml" rel="self"/>
   
   <link href="https://blog.xuzhou-jiang.su/"/>
-  <updated>2025-08-31T10:38:18.000Z</updated>
+  <updated>2025-08-31T14:46:36.000Z</updated>
   <id>https://blog.xuzhou-jiang.su/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>填坑：个人主页的配置</title>
+    <link href="https://blog.xuzhou-jiang.su/2025/08/31/imsyy-home/"/>
+    <id>https://blog.xuzhou-jiang.su/2025/08/31/imsyy-home/</id>
+    <published>2025-08-31T13:11:30.000Z</published>
+    <updated>2025-08-31T14:46:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近发现，本博客的文章，绝大多数都是跟长毛象有关的。本来以为写过我的<a href="https://xuzhou-jiang.su/">个人主页</a>是怎么配置的，后来发现原来当初是嫌太简单，没写（？）<br>也好办，读了本文以后，你也能像我一样，做出如此酷炫的个人主页。</p><span id="more"></span><p>今天看见这个主页作者的仓库已经封存3个月了，还写了如下留言，甚是感慨。</p><blockquote><p><strong>致大家</strong><br>此项目最初只是一个简单的主页。然而，随着越来越多的小伙伴发现了这个项目，它受到了大量本不应有的关注。而且，此项目作为初学前端的作品，其代码相当杂乱且质量低下。此外，该项目还遭到众多不明资源站或下载站的倒卖，致使许多不明真相的购买者从源代码中找到本人的联系方式进行问题咨询或提出功能需求。由于目前个人原因，该仓库进行存档，敬请谅解！</p></blockquote><p>就你国这风气，闭关锁国的，还把抄袭当成先知，呵呵。<br>我想起来小学里，有同学把我100分的卷子偷去，把名字改成自己的，获得老师表扬，还当上了班干部。我国的<strong>人民企业家</strong>大概也不过如此吧。马化腾的行径确实是这样，把汉化组给弄进去了。老马下手可比徐逸狠多了。</p><h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>我看<a href="https://byteloid.one/">笨蛋冰的主页</a>非常炫酷，就向他求教怎么弄的，他就指路了<a href="https://github.com/imsyy/home">这个GitHub项目</a>。看语言，应该是Vue框架，又是一个我不懂的领域。<br>好在他的文档写得还不错，东西远比我的博客和在GitHub写的README要多。</p><h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>还是很简单</p><h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>解释器方面仅需要安装<a href="https://nodejs.org/">node.js</a><br>装完node.js以后，安装pnpm包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pnpm</span><br></pre></td></tr></table></figure><p>它需要的包都在<code>package.json</code>里，在该项目的目录打开命令行，直接使用<code>pnpm install</code>统一安装</p><blockquote><p>如果你跟赛博丁真何同学一样不会克隆代码，或者不会在当前目录打开命令行，请立即关闭网页</p></blockquote><h2 id="调试网页"><a href="#调试网页" class="headerlink" title="调试网页"></a>调试网页</h2><p>开发过程肯定不能像某些学霸那样人脑跑代码，必定需要看看效果。在目录运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm dev</span><br></pre></td></tr></table></figure><p>这个环境非常智能，运行无误会全自动打开端口，并当场打开浏览器。如果你没改过代码，那它就会显示作者的个人主页（当然，项目旧了，不保证每个链接都有效）。你更改代码后，每当你按下保存键，浏览器就会自动刷新网页，即时显示你的修改效果。不需要你手动重新编译、重启进程、刷新网页了。</p><p>代码写完后，你要发表。笔者是发布在Cloudflare Pages上的，所以GitHub上找不到我个人主页的开源代码。运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm build</span><br></pre></td></tr></table></figure><p>它就会把你的网站编译成一套完整的静态网页，存储在代码目录下的<code>dist</code>目录中。只要把这个目录（拷贝、上传）设为网页服务器的网站根目录，即可在网络上浏览。</p><h1 id="建站过程"><a href="#建站过程" class="headerlink" title="建站过程"></a>建站过程</h1><p>很多内容都在作者文档里有提过，我不愿赘述，以防读者错过真正有用的部分。<br>第一步无非是把<code>.env</code>里的环境变量都改成自己的，<code>src/assets</code>目录里的东西也改成自己的。<br>既然把网址改成了自己的，它只支持作者网站的字体，目录<code>public/font</code>里面，作者也很贴心地留有文档。</p><h2 id="坑1：我的三段域名和现在的超长域名"><a href="#坑1：我的三段域名和现在的超长域名" class="headerlink" title="坑1：我的三段域名和现在的超长域名"></a>坑1：我的三段域名和现在的超长域名</h2><p>不是每个人的域名都这么简洁，这么靓的。而<a href="https://byteloid.one/">笨蛋冰</a>的Bingxin后面有个多余的<code>.</code><br>而我的三段域名却只能显示2段。现在我的超长域名xuzhou-jiang.su却只能显示省略号。<br>这个坑，作者的文档里面没有。经过我用F12查看网页源代码，发现在<code>src/components/Message.vue</code>可以改变文字样式和元素多少。<br>多一个<code>&lt;/span&gt;</code>就多一个点</p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">diff --git a/src/components/Message.vue b/src/components/Message.vue</span></span><br><span class="line"><span class="comment">index b130630..53c45da 100644</span></span><br><span class="line"><span class="comment">--- a/src/components/Message.vue</span></span><br><span class="line"><span class="comment">+++ b/src/components/Message.vue</span></span><br><span class="line"><span class="meta">@@ -7,6 +7,7 @@</span></span><br><span class="line">       &lt;div :class=&quot;&#123; name: true, &#x27;text-hidden&#x27;: true, long: siteUrl[0].length &gt;= 6 &#125;&quot;&gt;</span><br><span class="line">         &lt;span class=&quot;bg&quot;&gt;&#123;&#123; siteUrl[0] &#125;&#125;&lt;/span&gt;</span><br><span class="line">         &lt;span class=&quot;sm&quot;&gt;.&#123;&#123; siteUrl[1] &#125;&#125;&lt;/span&gt;</span><br><span class="line"><span class="addition">+        &lt;span class=&quot;sm&quot;&gt;.&#123;&#123; siteUrl[2] &#125;&#125;&lt;/span&gt;</span></span><br><span class="line">       &lt;/div&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">     &lt;!-- 简介 --&gt;</span><br></pre></td></tr></table></figure><p>现在我只有两段域名了，把<code>&lt;/span&gt;</code>给删掉，再把<code>bg</code>这个类改成<code>sm</code>就行了。</p><h2 id="坑2：高德地图api"><a href="#坑2：高德地图api" class="headerlink" title="坑2：高德地图api"></a>坑2：高德地图api</h2><p>查看<a href="https://byteloid.one/">Bingxinの主页</a>，你会发现很多人的天气都是一样问题，都显示“天气数据获取失败”。而我却可以显示用户当地天气。<br>这是因为我配置了高德api。没错，我申请了api。但这api是实名的，我认为非常不安全。<br>我按F12发现，这个api就是在前端运行的。那就很好办了。我只要用搜索引擎，把所有用本框架的主页都搜出来，找到能正确显示天气的，把那位老哥的高德api给复制过来。<em>我也不知道他的是不是偷的，反正只要我不被盒了就行</em></p><h2 id="坑3：长毛象署名"><a href="#坑3：长毛象署名" class="headerlink" title="坑3：长毛象署名"></a>坑3：长毛象署名</h2><p>这也不算坑，纯粹为了凑个规整。<br>之前我也在<a href="/2025/01/19/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/#%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%BD%9C%E8%80%85%E7%BD%B2%E5%90%8D">本博客的搭建教程</a>里面提过。这个比较简单，只要在项目根目录的<code>index.html</code>里面添加就行</p><h2 id="坑4：添加BlueSky和开往图标"><a href="#坑4：添加BlueSky和开往图标" class="headerlink" title="坑4：添加BlueSky和开往图标"></a>坑4：添加BlueSky和开往图标</h2><p>这也不用我废话，直接上网找图标，放进文件夹，在<code>src/assets/socialLinks.json</code>里面引用就行。什么？你说如何找到大小合适的图片？我都自己亲手缩放裁剪的。如果你等学校（或作者）给你发手工课材料或者文具（电脑）以后才肯动手的话，请立即关闭本页面，谢谢！<del>如果你遇上了“我给你发素材&#x2F;文具&#x2F;电脑了吗？你就做了”的老板、老师、同学，请帮我揍她qqqxx</del></p><h2 id="坑5：vite编译失败"><a href="#坑5：vite编译失败" class="headerlink" title="坑5：vite编译失败"></a>坑5：vite编译失败</h2><p>这个<code>vite</code>的依赖包，编译需要建立软链接，编译很容易报错。错误的发生原因，就是你在NTFS格式的分区编译此项目，从而无法建立软链接。解决办法：在项目的根目录下，添加文件<code>.npmrc</code>，内容添加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node-linker=hoisted</span><br></pre></td></tr></table></figure><p>以上就是imsyy的个人主页的踩坑心得。写给自己看，也希望读者也能拥有属于自己的酷主页。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;最近发现，本博客的文章，绝大多数都是跟长毛象有关的。本来以为写过我的&lt;a href=&quot;https://xuzhou-jiang.su/&quot;&gt;个人主页&lt;/a&gt;是怎么配置的，后来发现原来当初是嫌太简单，没写（？）&lt;br&gt;也好办，读了本文以后，你也能像我一样，做出如此酷炫的个人主页。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="建站技术" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
+    
+    
+    <category term="网络安全" scheme="https://blog.xuzhou-jiang.su/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="踩坑心得" scheme="https://blog.xuzhou-jiang.su/tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/"/>
+    
+    <category term="Vue" scheme="https://blog.xuzhou-jiang.su/tags/Vue/"/>
+    
+    <category term="免费的技术支持就在这里" scheme="https://blog.xuzhou-jiang.su/tags/%E5%85%8D%E8%B4%B9%E7%9A%84%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E5%B0%B1%E5%9C%A8%E8%BF%99%E9%87%8C/"/>
+    
+    <category term="互联网非物质文化手艺大赛" scheme="https://blog.xuzhou-jiang.su/tags/%E4%BA%92%E8%81%94%E7%BD%91%E9%9D%9E%E7%89%A9%E8%B4%A8%E6%96%87%E5%8C%96%E6%89%8B%E8%89%BA%E5%A4%A7%E8%B5%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>关于最近站点发生变化的说明</title>

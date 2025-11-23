@@ -51,7 +51,8 @@
                 doc.title = docText;
             }, 1000);
         } else {
-            doc.title = '藏起来了d(`x_x)b';
+//            doc.title = '藏起来了d(`x_x)b';
+            doc.title = docText;
             if (status) {
                 clearTimeout(status);
             }

@@ -1,3 +1,4 @@
+https://blog.xuzhou-jiang.su/2025/12/28/A-A-A/
 https://blog.xuzhou-jiang.su/2025/11/23/mastodon-quote/
 https://blog.xuzhou-jiang.su/2025/09/01/mastodon-markdown-codeblock-highlight/
 https://blog.xuzhou-jiang.su/2025/09/01/bucket-vul/
@@ -61,6 +62,14 @@ https://blog.xuzhou-jiang.su/tags/%E5%88%86%E9%85%8D%E4%BA%A4%E6%8D%A2%E7%A9%BA%
 https://blog.xuzhou-jiang.su/tags/apt%E9%98%BB%E6%AD%A2%E7%89%B9%E5%AE%9A%E8%BD%AF%E4%BB%B6%E5%8D%87%E7%BA%A7/
 https://blog.xuzhou-jiang.su/tags/%E5%93%AA%E5%90%922/
 https://blog.xuzhou-jiang.su/tags/%E5%B7%AE%E4%B8%8D%E5%A4%9A%E5%BE%97%E4%BA%86%F0%9F%98%85/
+https://blog.xuzhou-jiang.su/tags/%E5%88%A0%E5%89%8D%E7%95%99%E5%90%8D/
+https://blog.xuzhou-jiang.su/tags/%E9%AB%98%E8%BE%BE/
+https://blog.xuzhou-jiang.su/tags/%E6%96%A9%E6%9D%80%E7%BA%BF/
+https://blog.xuzhou-jiang.su/tags/%E9%9D%9E%E5%8E%9F%E5%88%9B/
+https://blog.xuzhou-jiang.su/tags/%E9%94%AE%E6%94%BF/
+https://blog.xuzhou-jiang.su/tags/%E7%BE%8E%E5%9B%BD%E5%8F%8D%E5%AF%B9%E7%BE%8E%E5%9B%BD/
+https://blog.xuzhou-jiang.su/tags/%E8%A5%BF%E9%9B%85%E5%9B%BE/
+https://blog.xuzhou-jiang.su/tags/%E8%BF%AA%E6%96%AF%E7%A7%91%E7%B1%B3/
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E9%AD%94%E6%94%B9/
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E4%B8%AD%E5%BA%A6%E9%AD%94%E6%94%B9/
@@ -89,3 +98,5 @@ https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/%E7%BD%AE%E9%A1%B6%E9%99%90%E5%88%B6%E5%A2%9E%E5%8A%A0/
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/%E5%8F%91%E9%80%81%E5%A4%9A%E4%B8%AA%E8%A7%86%E9%A2%91/
 https://blog.xuzhou-jiang.su/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E6%9C%AF/%E9%95%BF%E6%AF%9B%E8%B1%A1%E8%BD%BB%E5%BA%A6%E9%AD%94%E6%94%B9/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99%E9%99%84%E5%8A%A0%E4%BF%A1%E6%81%AF%E5%A2%9E%E5%8A%A0/
+https://blog.xuzhou-jiang.su/categories/%E9%94%AE%E6%94%BF%E5%A4%A9%E5%9C%B0/
+https://blog.xuzhou-jiang.su/categories/%E9%94%AE%E6%94%BF%E5%A4%A9%E5%9C%B0/%E9%9D%9E%E5%8E%9F%E5%88%9B/

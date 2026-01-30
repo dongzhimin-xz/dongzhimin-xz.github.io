@@ -49,8 +49,6 @@
     $('#content-outer').mCustomScrollbar({
         theme: 'minimal',
         axis: 'y', // horizontal scrollbar
-        mouseWheelPixels: 300,
-        scrollInertia: 500,
         callbacks: {
             whileScrolling: function () {
                 myCustomFn(this);

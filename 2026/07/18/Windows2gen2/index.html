@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="用Windows编译Linux操作系统（三）：从live-bootstrap编译gentoo"><meta name="keywords" content="踩坑心得,一点偷工减料的干货,自助创新,时间杀手预警,互联网非物质文化遗产,Linux邪教,编译Linux系统"><meta name="author" content="妙瓦草,undefined"><meta name="copyright" content="妙瓦草"><meta name="fediverse:creator" content="@Network@cmx.xuzhou-jiang.su"><link rel="me" href="https://cmx.xuzhou-jiang.su/@Network"><title>用Windows编译Linux操作系统（三）：从live-bootstrap编译gentoo【妙瓦种子】</title><link rel="stylesheet" href="../../../../css/fan.css"><link rel="stylesheet" href="../../../../css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><link rel="icon" href="../../../../favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- script(src=url_for("/js/mathjax/mathjax.js"))--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"BLFJMI3OZT","apiKey":"bfca30d788c8947af1865ed33655b646","indexName":"blog","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  gitment: {},
+  valine: {"appId":"xASAWVJMlgR6Z0IAumJosLmQ-MdYXbMMI","appKey":"hrSzqoj09CVByDzUeBMDEjuF","serverURLs":"https://xasawvjm.api.lncldglobal.com"},
+  twikoo: {},
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="妙瓦种子" type="application/atom+xml">
+</head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E4%B8%BEgentoo"><span class="toc-number">2.</span> <span class="toc-text">自举gentoo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85dropbear%EF%BC%88%E7%AE%80%E6%98%93SSH%E6%9C%8D%E5%8A%A1%E7%AB%AF%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">安装dropbear（简易SSH服务端）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8Bgentoo%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">开始gentoo编译流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0stage3%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">更新stage3文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85stage3%E6%96%87%E4%BB%B6"><span class="toc-number">2.4.</span> <span class="toc-text">打包stage3文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85gentoo"><span class="toc-number">2.5.</span> <span class="toc-text">安装gentoo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%9D%97%E7%A1%AC%E7%9B%98%E7%9A%84%E5%88%86%E5%8C%BA%E3%80%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8E%E6%8C%82%E8%BD%BD"><span class="toc-number">2.5.1.</span> <span class="toc-text">第二块硬盘的分区、格式化与挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">2.5.2.</span> <span class="toc-text">新系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85grub"><span class="toc-number">2.5.2.1.</span> <span class="toc-text">安装grub</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%90%8E"><span class="toc-number">2.5.3.</span> <span class="toc-text">安装后</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.jpg"></div><div class="author-info-name">妙瓦草</div><div class="author-info-description"></div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/dongzhimin-xz" target="_blank">GitHub<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="https://cmx.xuzhou-jiang.su/@Network" target="_blank">长毛象<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="https://bsky.app/profile/xuzhou-jiang.su" target="_blank">BlueSky<i class="icon-dot bg-color7"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="../../../../archives"><span class="pull-top">日志</span><span class="pull-bottom">30</span></a><a class="author-info-articles-tags article-meta" href="../../../../tags"><span class="pull-top">标签</span><span class="pull-bottom">59</span></a><a class="author-info-articles-categories article-meta" href="../../../../categories"><span class="pull-top">分类</span><span class="pull-bottom">35</span></a></div><div class="friend-link"><a class="friend-link-text" href="https://xuzhou-jiang.su/" target="_blank">个人主页</a><a class="friend-link-text" href="https://cmx.xuzhou-jiang.su/" target="_blank">长毛象实例</a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">妙瓦种子</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">用Windows编译Linux操作系统（三）：从live-bootstrap编译gentoo</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2026-07-18 | 更新于 2026-07-18</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../categories/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/">技术相关</a><i class="fa fa-angle-right" style="margin: 0 8px;"></i><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../categories/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E4%BF%A1%E5%88%9B%E5%A4%A9%E5%9C%B0/">信创天地</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E8%B8%A9%E5%9D%91%E5%BF%83%E5%BE%97/">踩坑心得</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E4%B8%80%E7%82%B9%E5%81%B7%E5%B7%A5%E5%87%8F%E6%96%99%E7%9A%84%E5%B9%B2%E8%B4%A7/">一点偷工减料的干货</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E8%87%AA%E5%8A%A9%E5%88%9B%E6%96%B0/">自助创新</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E6%97%B6%E9%97%B4%E6%9D%80%E6%89%8B%E9%A2%84%E8%AD%A6/">时间杀手预警</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E4%BA%92%E8%81%94%E7%BD%91%E9%9D%9E%E7%89%A9%E8%B4%A8%E6%96%87%E5%8C%96%E9%81%97%E4%BA%A7/">互联网非物质文化遗产</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/Linux%E9%82%AA%E6%95%99/">Linux邪教</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="../../../../tags/%E7%BC%96%E8%AF%91Linux%E7%B3%BB%E7%BB%9F/">编译Linux系统</a></div></div></div><div class="main-content"><p>之前笔者提到过gentoo。这个操作系统，非常的硬核。但是，它缺点意思，你编译Linux，最终还是要用到Linux系统或虚拟机，还是要去网上下载已经编译好的Linux系统的ISO文件。而且，这个gentoo的stage1甚至还失传了，大概从十年前开始，大家再也体会不到编译gentoo系统的乐趣了，因此，gentoo存在的意义也少了一大半！gentoo社区也走向凋敝。<br>所以，我找到了让<del>（我这样的）</del>新人也能体会到gentoo乐趣的玩法！</p>
+<span id="more"></span>
+<p>关于gentoo的自举，我已经<a href="/2026/05/04/gentoo-stage0/">写过了</a>。今天的教程有一点点不一样，我是用live-bootstrap启动的系统来自举gentoo的。本来还担心没法成功，但是我已经在虚拟机上成功测试了，最终可以完整安装最新版的gentoo！</p>
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><ol>
+<li>根据笔者的<a href="/2026/05/31/Windows-to-stage0/">这篇教程</a>，在虚拟机完成了Linux系统从无到有的编译。<br>也可以在裸机上执行，但要小心数据丢失。本文如果要安装gentoo，你至少要准备2块闲置硬盘，一块给live-bootstrap，一块给gentoo。</li>
+<li>根据笔者的<a href="/2026/05/31/kernelx64/">这篇教程</a>，编译出linux64位版本4.14的内核，并且启动这个内核。</li>
+<li>从<a target="_blank" rel="noopener" href="https://archive.org/download/gentoo-bootstrap-2025.8/distfiles.tar">https://archive.org/download/gentoo-bootstrap-2025.8/distfiles.tar</a> 下载所有gentoo自举所需软件，并解压到自举系统的<code>/external/sources</code>目录。你可以使用<code>curl</code>命令下载。</li>
+</ol>
+<h1 id="自举gentoo"><a href="#自举gentoo" class="headerlink" title="自举gentoo"></a>自举gentoo</h1><p>基本上根据这个教程来进行<a target="_blank" rel="noopener" href="https://mid-kid.root.sx/git/mid-kid/bootstrap/src/branch/master/gentoo-2025.8/gentoo.txt">https://mid-kid.root.sx/git/mid-kid/bootstrap/src/branch/master/gentoo-2025.8/gentoo.txt</a> ，中间有些步骤需要极少量变通。</p>
+<h2 id="安装dropbear（简易SSH服务端）"><a href="#安装dropbear（简易SSH服务端）" class="headerlink" title="安装dropbear（简易SSH服务端）"></a>安装dropbear（简易SSH服务端）</h2><p>这个步骤<strong>强烈建议</strong>执行，在交叉编译内核之前就执行。之后的命令和配置文件可以全部通过另一台电脑进行复制粘贴来输入，否则手动配置编译极容易出错，还浪费时间。</p>
+<ol>
+<li>在<a target="_blank" rel="noopener" href="https://dropbear.nl/">https://dropbear.nl</a> 下载dropbear的代码，并进行校验。这里需要手动输入<code>curl -L -O</code>命令来进行下载</li>
+<li>解压代码后，用<code>./configure --prefix=/usr --sbindir=/usr/bin --disable-harden --disable-utmp --disable-utmpx --disable-wtmp --disable-wtmpx &amp;&amp; make -j($nproc) &amp;&amp; make install</code>来安装dropbear</li>
+<li>dropbear启动前还必须满足一些条件。首先挂载<code>devpts</code>：<code>mkdir -p /dev/pts; mount -t devpts devpts /dev/pts</code>（每次重启都必须执行该命令）。再创建配置文件位置<code>mkdir /etc/dropbear</code>。</li>
+<li>设置root密码</li>
+<li>启动dropbear<code>dropbear -R -e</code></li>
+<li>用curl访问你的迷你网页服务器，找到自举系统的IP地址（该系统没有<code>ping</code>和<code>ip addr</code>）。从你的Windows宿主机或另一台电脑使用ssh登录该系统。</li>
+</ol>
+<p>顺利的话应该是秒开，起始位置为root的用户目录，也就是<code>/root</code>。</p>
+<h2 id="开始gentoo编译流程"><a href="#开始gentoo编译流程" class="headerlink" title="开始gentoo编译流程"></a>开始gentoo编译流程</h2><p>首先挂载代码目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /external/disfiles /var/cache/distfiles</span><br></pre></td></tr></table></figure>
+<p>然后根据教程<a target="_blank" rel="noopener" href="https://mid-kid.root.sx/git/mid-kid/bootstrap/src/branch/master/gentoo-2025.8/gentoo.txt">https://mid-kid.root.sx/git/mid-kid/bootstrap/src/branch/master/gentoo-2025.8/gentoo.txt</a> 开始自举，其中可以省略下载代码的步骤。只要下载了<a target="_blank" rel="noopener" href="https://archive.org/download/gentoo-bootstrap-2025.8/distfiles.tar">https://archive.org/download/gentoo-bootstrap-2025.8/distfiles.tar</a> ，下面的编译步骤都可以隔绝网络进行。<br>其中，自举系统没有<code>rsync</code>等指令，所有退回宿主系统的步骤都需要变通执行，因为这时候没有宿主系统。这里我建议挂载代码目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /external/distfiles /target/var/cache/distfiles</span><br></pre></td></tr></table></figure>
+
+<p>直到最后<code>chroot</code>进<code>/target</code>目录，运行了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emerge -e @world</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新stage3文件"><a href="#更新stage3文件" class="headerlink" title="更新stage3文件"></a>更新stage3文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">emerge-webrsync</span><br><span class="line">emerge -avuDN @world</span><br></pre></td></tr></table></figure>
+<p>本步骤的时间不亚于编译gentoo-stage3的所有步骤的总和</p>
+<h2 id="打包stage3文件"><a href="#打包stage3文件" class="headerlink" title="打包stage3文件"></a>打包stage3文件</h2><p>首先，确保更新完整后，解除所有代码目录的挂载，以节省空间和时间。<br>然后，<strong>在stage3的chroot环境内</strong>，执行如下代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpjf stage3-amd64-openrc-20260628.tar.xz --exclude=/stage3-amd64-openrc-20260628.tar.xz --one-file-system --xattrs-include=<span class="string">&#x27;*.*&#x27;</span> --numeric-owner /</span><br></pre></td></tr></table></figure>
+<p>文件名<code>stage3-amd64-openrc-20260628.tar.xz</code>你可以自行修改，整行命令中有2处要改！<br>打包完成后，你就有了完全属于自己编译的stage3！理论上，每个人每台电脑编译出的stage3都应该是一模一样的，差别只跟时间有关，每天的gentoo仓库都是不同的。</p>
+<h2 id="安装gentoo"><a href="#安装gentoo" class="headerlink" title="安装gentoo"></a>安装gentoo</h2><p>为了验证，需要完整安装一遍gentoo。<br>**理论上，**你可以在登录ssh的前提下，进行原地替换安装<a target="_blank" rel="noopener" href="https://wiki.gentoo.org/wiki/User:Jbara/Installing_Gentoo_on_Free_Oracle_VPS">https://wiki.gentoo.org/wiki/User:Jbara/Installing_Gentoo_on_Free_Oracle_VPS</a> ，但是你要删除更多自举有用的无用文件，而且linux-4.14无模块内核，还不知道是否支持重启。因此，我不建议你原地替换安装。</p>
+<p>本文只讲安装gentoo的大概步骤，官方手册已有的不再赘述！</p>
+<h3 id="第二块硬盘的分区、格式化与挂载"><a href="#第二块硬盘的分区、格式化与挂载" class="headerlink" title="第二块硬盘的分区、格式化与挂载"></a>第二块硬盘的分区、格式化与挂载</h3><p>live-bootstrap里面不含cfdisk，而fdisk都不能进行gpt分区。<br>你可以老老实实安装只能BIOS启动的gentoo。但是，最终也可以安装可以UEFI启动的Linux系统！</p>
+<p>live-bootstrap没有且难以安装<code>arch-chroot</code>命令，因此，你还是得需要<code>mount</code>和<code>chroot</code>来进行容器化。</p>
+<p>首先，你还是容器化<code>chroot</code>进<code>/target</code>，这时，你会发现，你可以使用<code>lsblk</code>、<code>cfdisk</code>和可以gpt分区的<code>fdisk</code>了！<br>当然，<code>cfdisk</code>还是只有在ssh界面下，并正确配置<code>TERM</code>环境变量以后才能使用。<br>容器内外，其实只有内核是一样的，库都是gentoo的。<br>不仅能正确使用<code>cfdisk</code>，你还可以安装<code>dosfstools</code>，用来把EFI分区格式化为FAT32。但是，你无法挂载EFI分区，以及在上面安装GRUB。</p>
+<p>因此，我建议，你还是使用GPT分区，但是做一些微小的调整。首先，照常分区为</p>
+<table>
+<thead>
+<tr>
+<th>分区</th>
+<th>大小</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sdb1</td>
+<td>1G</td>
+<td>EFI分区</td>
+</tr>
+<tr>
+<td>sdb2</td>
+<td>10G</td>
+<td>swap分区</td>
+</tr>
+<tr>
+<td>sdb3</td>
+<td>剩下全部</td>
+<td>Linux根目录</td>
+</tr>
+</tbody></table>
+<p>然后swap分区Resize为10239M，你多出来的1M空间，再建一个分区sda4，类型改为BIOS分区，并且不要格式化！</p>
+<blockquote>
+<p><font color=yellow>注意⚠：在<code>cfdisk</code>中，不要被分区顺序所迷惑，修改类型时不要改错分区！</font></p>
+</blockquote>
+<h3 id="新系统安装"><a href="#新系统安装" class="headerlink" title="新系统安装"></a>新系统安装</h3><p>live-bootstrap系统中不含<code>/mnt</code>，需自行创建。<br>将<code>/dev/sdb3</code>挂载后，按照官方教程中的命令解压stage3压缩包到<code>/mnt</code>或<code>/mnt/gentoo</code>。根据官方教程，你可以将profile切换为systemd，也可以待安装结束后，启动进入新系统之后再切换systemd。<br>最后你会发现，linux内核还是可以编译的。</p>
+<h4 id="安装grub"><a href="#安装grub" class="headerlink" title="安装grub"></a>安装grub</h4><p>有了BIOS分区，你可以将这块硬盘当作MBR硬盘执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-install /dev/sdb</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装后"><a href="#安装后" class="headerlink" title="安装后"></a>安装后</h3><p>安装完成后，你可以在这个新gentoo系统中做任何事，因为这就是一个完整的，官方的gentoo系统。<br>第一次启动，你还是得BIOS启动进入。但是你可以格式化<code>sda1</code>并安装grub了。为防止报错，你的<code>grub-install</code>建议带上<code>--removable</code>参数。重启成功后，再不带<code>--removable</code>执行一遍。<br>这其中的原理就是，<code>grub-install</code>不仅安装efi文件，还会在主板上写入启动记录。但是加上<code>--removable</code>以后，主板可以把它当作一个安装盘进行UEFI启动。</p>
+<p>如果VMWare无法启动，你可以进入固件，选择<code>Boot from a file</code>，启动gentoo，并重新执行<code>grub-install</code>即可修复。</p>
+<p>由此可知，gentoo是最好的发行版，从源码编译，并且功能比LFS完整，还有包管理器让人免于依赖地狱！即使包管理器里没有收录你要的软件，或者还未来得及收录最新版本软件（就比如需要修复CVE零日漏洞），也可以自行编译或安装二进制（NixOS不能在不打包的情况下做到这一点）。<br>它的包管理器<code>portage</code>也可以给其他系统使用（兼容性不如nix就是）。</p>
+</div><div class="post-copyright valine" id="comments-container"><script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script><script>let arr = location.href.split('/#more')[0].split('/');
+let title = arr[arr.length - 1];
+if (title === '') {
+    title = arr[arr.length - 2];
+}
+var flag = false;
+var gitFun = function () {
+    try {
+        var valineObj = window.GLOBAL_CONFIG.valine;
+        new Valine({
+            el: "#comments-container",
+            ...valineObj
+        });
+        flag = true;
+    } catch (e) {
+        flag = false;
+    }
+}
+var setIn = setInterval(() => {
+    if (!flag) {
+        gitFun();
+    } else {
+        clearInterval(setIn);
+    }
+}, 200);</script></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="../../../05/31/kernelx64/"><span>用Windows编译Linux操作系统（二）：用live-bootstrap（i686内核）编译x86_64内核</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2025 ～ 2026 By 妙瓦草</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="../../../../js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="../../../../js/search/algolia.js"></script></body></html>
